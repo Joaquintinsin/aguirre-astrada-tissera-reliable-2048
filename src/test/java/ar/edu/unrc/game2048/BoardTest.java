@@ -40,4 +40,29 @@ class BoardTest {
         // Act
         assert boardToTest.hasEmptyCells() == !boardToTest.isFull();
     }
+
+
+    @Test
+    public void isWinningBoardTest() {
+        // Arrange
+        int win_value = 2048;
+        Cell winning_cell = new Cell(win_value);
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, winning_cell);
+        boolean found = false;
+
+        // Act
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Cell cellToTest = boardToTest.getCell(i, j);
+                if (cellToTest.equals(winning_cell)) {
+                    found = true;
+                }
+            }
+        }
+
+        // Assert
+        assert found;
+    }
 }
