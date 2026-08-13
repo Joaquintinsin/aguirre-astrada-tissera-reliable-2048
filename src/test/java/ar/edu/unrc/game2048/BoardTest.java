@@ -27,12 +27,24 @@ class BoardTest {
 
     @Test 
     public void parameterConstructorNegativeNumberExeptionTest() {
+        // Arrange 
         int inputSize = -1;
-        // Arrange - Act
-        // Assert
+        // Act - Assert
         assertThrows(IllegalArgumentException.class, () -> {
           Board board = new Board(inputSize);
         });
         
     }
+
+    @Test
+    public void copyConstructor(){
+        //Arrange
+        int inputSize = 6;
+        Board board = new Board(inputSize);
+        //Act 
+        Board copy = new Board(board);
+        // Assert
+        assertEquals(board, copy);
+    }
+    
 }
