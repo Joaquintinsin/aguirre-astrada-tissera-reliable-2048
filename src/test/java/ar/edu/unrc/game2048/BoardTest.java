@@ -31,4 +31,13 @@ class BoardTest {
         // Assert
         assert boardToTest.getEmptyPositions().equals(emptyPositions);
     }
+
+    @Test
+    public void hasEmptyCellsTest() {
+        // Arrange
+        Board boardToTest = new Board();
+
+        // Act
+        assert boardToTest.hasEmptyCells() == !boardToTest.isFull();
+    }
 }
