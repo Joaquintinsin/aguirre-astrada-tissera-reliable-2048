@@ -63,6 +63,7 @@ class BoardTest {
         }
 
         // Assert
+        assert !boardToTest.isLosingBoard();
         assert found;
     }
 }
