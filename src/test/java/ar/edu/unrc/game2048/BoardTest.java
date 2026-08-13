@@ -41,7 +41,6 @@ class BoardTest {
         assert boardToTest.hasEmptyCells() == !boardToTest.isFull();
     }
 
-
     @Test
     public void isWinningBoardTest() {
         // Arrange
@@ -65,5 +64,21 @@ class BoardTest {
         // Assert
         assert !boardToTest.isLosingBoard();
         assert found;
+    }
+
+    @Test
+    public void isLosingBoardTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(8));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(4));
+
+        // Act
+        assert !boardToTest.isWinningBoard();
+        assert !boardToTest.hasEmptyCells();
+        assert boardToTest.isLosingBoard();
     }
 }
