@@ -145,4 +145,54 @@ class BoardTest {
         // Assert
         assert !boardHasMoved;
     }
+
+    @Test
+    public void moveDownTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        Board defaultBoard = new Board();
+
+        // Act
+        boolean boardHasMoved = boardToTest.moveDown();
+        boolean defaultBoardHasMoved = defaultBoard.moveDown();
+
+        // Assert
+        assert defaultBoardHasMoved;
+        assert boardHasMoved;
+    }
+
+    @Test
+    public void moveDownWhenLosingBoardTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(8));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(4));
+
+        // Act
+        boolean boardHasMoved = boardToTest.moveDown();
+
+        // Assert
+        assert !boardHasMoved;
+    }
+
+    @Test
+    public void moveDownWhenWinningBoardTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2048));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(4));
+
+        // Act
+        boolean boardHasMoved = boardToTest.moveDown();
+
+        // Assert
+        assert !boardHasMoved;
+    }
 }
