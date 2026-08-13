@@ -113,6 +113,46 @@ class BoardTest {
     }
 
     @Test
+    public void hardcodedMoveUpTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(0));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+        // There are two possibles board oracles after moving because of the random tile
+        Board firstOracleBoard = new Board(size);
+        firstOracleBoard.setCell(0, 0, new Cell(4));
+        firstOracleBoard.setCell(0, 1, new Cell(2));
+        firstOracleBoard.setCell(1, 0, new Cell(0));
+        firstOracleBoard.setCell(1, 1, new Cell(2));
+        Board secondOracleBoard = new Board(size);
+        secondOracleBoard.setCell(0, 0, new Cell(4));
+        secondOracleBoard.setCell(0, 1, new Cell(2));
+        secondOracleBoard.setCell(1, 0, new Cell(2));
+        secondOracleBoard.setCell(1, 1, new Cell(0));
+
+        // Act
+        boardToTest.moveUp();
+        Cell topLeftBoardCell = boardToTest.getCell(0, 0);
+        Cell topRightBoardCell = boardToTest.getCell(0, 1);
+        // Board to test vs first oracle
+        Cell topLeftFirstOracleCell = firstOracleBoard.getCell(0, 0);
+        Cell topRightFirstOracleCell = firstOracleBoard.getCell(0, 1);
+        // Board to test vs second oracle
+        Cell topLeftSecondOracleCell = secondOracleBoard.getCell(0, 0);
+        Cell topRightSecondOracleCell = secondOracleBoard.getCell(0, 1);
+        boolean cellsAreEquals = topLeftBoardCell.equals(topLeftFirstOracleCell)
+                && topRightBoardCell.equals(topRightFirstOracleCell);
+        cellsAreEquals = cellsAreEquals || topLeftBoardCell.equals(topLeftSecondOracleCell)
+                && topRightBoardCell.equals(topRightSecondOracleCell);
+
+        // Assert
+        assert cellsAreEquals;
+    }
+
+    @Test
     public void moveUpWhenLosingBoardTest() {
         // Arrange
         int size = 2;
@@ -160,6 +200,46 @@ class BoardTest {
         // Assert
         assert defaultBoardHasMoved;
         assert boardHasMoved;
+    }
+
+    @Test
+    public void hardcodedMoveDownTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(0));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+        // There are two possibles board oracles after moving because of the random tile
+        Board firstOracleBoard = new Board(size);
+        firstOracleBoard.setCell(0, 0, new Cell(0));
+        firstOracleBoard.setCell(0, 1, new Cell(2));
+        firstOracleBoard.setCell(1, 0, new Cell(4));
+        firstOracleBoard.setCell(1, 1, new Cell(2));
+        Board secondOracleBoard = new Board(size);
+        secondOracleBoard.setCell(0, 0, new Cell(2));
+        secondOracleBoard.setCell(0, 1, new Cell(0));
+        secondOracleBoard.setCell(1, 0, new Cell(4));
+        secondOracleBoard.setCell(1, 1, new Cell(2));
+
+        // Act
+        boardToTest.moveDown();
+        Cell bottomLeftBoardCell = boardToTest.getCell(1, 0);
+        Cell bottomRightBoardCell = boardToTest.getCell(1, 1);
+        // Board to test vs first oracle
+        Cell bottomLeftFirstOracleCell = firstOracleBoard.getCell(1, 0);
+        Cell bottomRightFirstOracleCell = firstOracleBoard.getCell(1, 1);
+        // Board to test vs second oracle
+        Cell bottomLeftSecondOracleCell = secondOracleBoard.getCell(1, 0);
+        Cell bottomRightSecondOracleCell = secondOracleBoard.getCell(1, 1);
+        boolean cellsAreEquals = bottomLeftBoardCell.equals(bottomLeftFirstOracleCell)
+                && bottomRightBoardCell.equals(bottomRightFirstOracleCell);
+        cellsAreEquals = cellsAreEquals || bottomLeftBoardCell.equals(bottomLeftSecondOracleCell)
+                && bottomRightBoardCell.equals(bottomRightSecondOracleCell);
+
+        // Assert
+        assert cellsAreEquals;
     }
 
     @Test
@@ -213,6 +293,46 @@ class BoardTest {
     }
 
     @Test
+    public void hardcodedMoveLeftTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(0));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+        // There are two possibles board oracles after moving because of the random tile
+        Board firstOracleBoard = new Board(size);
+        firstOracleBoard.setCell(0, 0, new Cell(2));
+        firstOracleBoard.setCell(0, 1, new Cell(0));
+        firstOracleBoard.setCell(1, 0, new Cell(4));
+        firstOracleBoard.setCell(1, 1, new Cell(2));
+        Board secondOracleBoard = new Board(size);
+        secondOracleBoard.setCell(0, 0, new Cell(2));
+        secondOracleBoard.setCell(0, 1, new Cell(2));
+        secondOracleBoard.setCell(1, 0, new Cell(4));
+        secondOracleBoard.setCell(1, 1, new Cell(0));
+
+        // Act
+        boardToTest.moveLeft();
+        Cell topLeftBoardCell = boardToTest.getCell(0, 0);
+        Cell bottomLeftBoardCell = boardToTest.getCell(0, 1);
+        // Board to test vs first oracle
+        Cell topLeftFirstOracleCell = firstOracleBoard.getCell(0, 0);
+        Cell bottomLeftFirstOracleCell = firstOracleBoard.getCell(0, 1);
+        // Board to test vs second oracle
+        Cell topLeftSecondOracleCell = secondOracleBoard.getCell(0, 0);
+        Cell bottomLeftSecondOracleCell = secondOracleBoard.getCell(0, 1);
+        boolean cellsAreEquals = bottomLeftBoardCell.equals(topLeftFirstOracleCell)
+                && bottomLeftBoardCell.equals(bottomLeftFirstOracleCell);
+        cellsAreEquals = cellsAreEquals || topLeftBoardCell.equals(topLeftSecondOracleCell)
+                && bottomLeftBoardCell.equals(bottomLeftSecondOracleCell);
+
+        // Assert
+        assert cellsAreEquals;
+    }
+
+    @Test
     public void moveLeftWhenLosingBoardTest() {
         // Arrange
         int size = 2;
@@ -260,6 +380,46 @@ class BoardTest {
         // Assert
         assert defaultBoardHasMoved;
         assert boardHasMoved;
+    }
+
+    @Test
+    public void hardcodedMoveRightTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(0));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+        // There are two possibles board oracles after moving because of the random tile
+        Board firstOracleBoard = new Board(size);
+        firstOracleBoard.setCell(0, 0, new Cell(0));
+        firstOracleBoard.setCell(0, 1, new Cell(2));
+        firstOracleBoard.setCell(1, 0, new Cell(2));
+        firstOracleBoard.setCell(1, 1, new Cell(4));
+        Board secondOracleBoard = new Board(size);
+        secondOracleBoard.setCell(0, 0, new Cell(2));
+        secondOracleBoard.setCell(0, 1, new Cell(2));
+        secondOracleBoard.setCell(1, 0, new Cell(0));
+        secondOracleBoard.setCell(1, 1, new Cell(4));
+
+        // Act
+        boardToTest.moveRight();
+        Cell topRightBoardCell = boardToTest.getCell(0, 1);
+        Cell bottomRightBoardCell = boardToTest.getCell(1, 1);
+        // Board to test vs first oracle
+        Cell topRightFirstOracleCell = firstOracleBoard.getCell(0, 1);
+        Cell bottomRightFirstOracleCell = firstOracleBoard.getCell(1, 1);
+        // Board to test vs second oracle
+        Cell topRightSecondOracleCell = secondOracleBoard.getCell(0, 1);
+        Cell bottomRightSecondOracleCell = secondOracleBoard.getCell(1, 1);
+        boolean cellsAreEquals = bottomRightBoardCell.equals(topRightFirstOracleCell)
+                && bottomRightBoardCell.equals(bottomRightFirstOracleCell);
+        cellsAreEquals = cellsAreEquals || topRightBoardCell.equals(topRightSecondOracleCell)
+                && bottomRightBoardCell.equals(bottomRightSecondOracleCell);
+
+        // Assert
+        assert cellsAreEquals;
     }
 
     @Test
