@@ -295,4 +295,63 @@ class BoardTest {
         // Assert
         assert !boardHasMoved;
     }
+
+    @Test
+    public void equalsTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+        Board b1Equal = new Board(boardToTest);
+
+        // Act
+        boolean boardVsB1 = boardToTest.equals(b1Equal);
+
+        // Assert
+        assert boardVsB1;
+    }
+
+    @Test
+    public void notSizeEqualsTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+        int b2Size = 4;
+        Board b2SizeNotEqual = new Board(b2Size);
+
+        // Act
+        boolean boardVsB2 = boardToTest.equals(b2SizeNotEqual);
+
+        // Assert
+        assert !boardVsB2;
+    }
+
+    @Test
+    public void notElementsEqualsTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+        Board b3CellsNotEqual = new Board(size);
+        b3CellsNotEqual.setCell(0, 0, new Cell(4));
+        b3CellsNotEqual.setCell(1, 0, new Cell(2));
+        b3CellsNotEqual.setCell(0, 1, new Cell(2));
+        b3CellsNotEqual.setCell(1, 1, new Cell(2));
+
+        // Act
+        boolean boardVsB3 = boardToTest.equals(b3CellsNotEqual);
+
+        // Assert
+        assert !boardVsB3;
+    }
 }
