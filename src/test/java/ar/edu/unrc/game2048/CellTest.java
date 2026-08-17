@@ -7,165 +7,160 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 class CellTest {
-    
+
     @Test
     void testCellCreation() {
-        //arrange-act
+        // arrange-act
         Cell cell = new Cell(2);
-        //assert
+        // assert
         assertEquals(cell.getValue(), 2);
     }
 
     @Test
     void testIsEmptyTrue() {
-        //arrange
+        // arrange
         Cell cell = new Cell(0);
-        //act
+        // act
         boolean result = cell.isEmpty();
-        //assert
+        // assert
         assertTrue(result);
     }
 
     @Test
     void testIsEmptyFalse() {
-        //arrange
+        // arrange
         Cell cell = new Cell(4);
-        //act
+        // act
         boolean result = cell.isEmpty();
-        //assert
+        // assert
         assertFalse(result);
     }
 
     @Test
     void testGetValueEmpty() {
-        //arrange
+        // arrange
         Cell cell = new Cell(0);
-        //act
+        // act
         int value = cell.getValue();
-        //assert
+        // assert
         assertEquals(value, 0);
     }
 
     @Test
     void testGetValueNonEmpty() {
-        //arrange
+        // arrange
         Cell cell = new Cell(8);
-        //act
+        // act
         int value = cell.getValue();
-        //assert
+        // assert
         assertEquals(value, 8);
     }
 
     @Test
     void testCanMergeWithTrue() {
-        //arrange
+        // arrange
         Cell cell1 = new Cell(4);
         Cell cell2 = new Cell(4);
-        //act
+        // act
         boolean result = cell1.canMergeWith(cell2);
-        //assert
+        // assert
         assertTrue(result);
     }
 
     @Test
     void testCanMergeWithFalse() {
-        //arrange
+        // arrange
         Cell cell1 = new Cell(2);
         Cell cell2 = new Cell(4);
-        //act
+        // act
         boolean result = cell1.canMergeWith(cell2);
-        //assert
+        // assert
         assertFalse(result);
     }
 
     @Test
     void testCanMergeWithEmptyCells() {
-        //arrange
+        // arrange
         Cell cell1 = new Cell(0);
         Cell cell2 = new Cell(0);
-        //act
+        // act
         boolean result = cell1.canMergeWith(cell2);
-        //assert
+        // assert
         assertFalse(result);
     }
 
     @Test
     void testMergeSussessful() {
-        //arrange
+        // arrange
         Cell cell1 = new Cell(4);
         Cell cell2 = new Cell(4);
-        //act
+        // act
         Cell mergedCell = cell1.mergeWith(cell2);
-        //assert
+        // assert
         assertEquals(mergedCell.getValue(), 8);
     }
 
-    @Test 
+    @Test
     void testMergeFailWithException() {
-        //arrange
+        // arrange
         Cell cell1 = new Cell(2);
         Cell cell2 = new Cell(4);
-        //act - assert
+        // act - assert
         assertThrows(IllegalArgumentException.class, () -> cell1.mergeWith(cell2));
     }
 
-
     @Test
     void testEqualsTrue() {
-        //arrange
+        // arrange
         Cell cell1 = new Cell(16);
         Cell cell2 = new Cell(16);
-        //act
+        // act
         boolean result = cell1.equals(cell2);
-        //assert
+        // assert
         assertTrue(result);
     }
 
     @Test
     void testEqualsFalse() {
-        //arrange
+        // arrange
         Cell cell1 = new Cell(2);
         Cell cell2 = new Cell(4);
-        //act
+        // act
         boolean result = cell1.equals(cell2);
-        //assert
+        // assert
         assertFalse(result);
     }
 
     @Test
     void testHashCode() {
-        //arrange
+        // arrange
         Cell cell1 = new Cell(32);
         Cell cell2 = new Cell(32);
-        //act
+        // act
         int hash1 = cell1.hashCode();
         int hash2 = cell2.hashCode();
-        //assert
+        // assert
         assertEquals(hash1, hash2);
     }
 
     @Test
     void testToStringValue() {
-        //arrange
+        // arrange
         Cell cell = new Cell(64);
-        //act
+        // act
         String str = cell.toString();
-        //assert
+        // assert
         assertEquals(str, "64");
     }
 
     @Test
     void testToStringEmpty() {
-        //arrange
+        // arrange
         Cell cell = new Cell(0);
-        //act
+        // act
         String str = cell.toString();
-        //assert
+        // assert
         assertEquals(str, ".");
     }
 
-
-
-
-    
 }

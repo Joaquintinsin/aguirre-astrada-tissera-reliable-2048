@@ -30,28 +30,27 @@ class BoardTest {
 
     }
 
-    @Test 
+    @Test
     public void parameterConstructorNegativeNumberExeptionTest() {
-        // Arrange 
+        // Arrange
         int inputSize = -1;
         // Act - Assert
         assertThrows(IllegalArgumentException.class, () -> {
-          Board board = new Board(inputSize);
+            Board board = new Board(inputSize);
         });
-        
+
     }
 
     @Test
-    public void copyConstructorTest(){
-        //Arrange
+    public void copyConstructorTest() {
+        // Arrange
         int inputSize = 6;
         Board board = new Board(inputSize);
-        //Act 
+        // Act
         Board copy = new Board(board);
         // Assert
         assertEquals(board, copy);
     }
-    
 
     @Test
     public void getSizeTest() {
@@ -64,7 +63,7 @@ class BoardTest {
         assertEquals(inputSize, result);
     }
 
-     @Test
+    @Test
     public void getScoreInitialValueTest() {
         // Arrange
         Board board = new Board();
@@ -125,7 +124,8 @@ class BoardTest {
             board.setCell(4, 4, newCell);
         });
     }
-        @Test
+
+    @Test
     public void getEmptyPositionTest() {
         // Arrange
         int size = 2;
