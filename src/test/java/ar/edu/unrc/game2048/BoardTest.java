@@ -37,7 +37,7 @@ class BoardTest {
     }
 
     @Test
-    public void copyConstructor(){
+    public void copyConstructorTest(){
         //Arrange
         int inputSize = 6;
         Board board = new Board(inputSize);
@@ -46,5 +46,19 @@ class BoardTest {
         // Assert
         assertEquals(board, copy);
     }
+    
+
+    @Test
+    public void getSizeTest() {
+        // Arrange
+        int inputSize = 5;
+        Board board = new Board(inputSize);
+        // Act
+        int result = board.getSize();
+        // Assert
+        assertEquals(inputSize, result);
+    }
+
+    
     
 }
