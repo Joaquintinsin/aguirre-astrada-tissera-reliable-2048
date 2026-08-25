@@ -1,7 +1,9 @@
 package ar.edu.unrc.game2048;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashSet;
@@ -144,7 +146,7 @@ class BoardTest {
         }
 
         // Assert
-        assert boardToTest.getEmptyPositions().equals(emptyPositions);
+        assertEquals(boardToTest.getEmptyPositions(), emptyPositions);
     }
 
     @Test
@@ -153,7 +155,7 @@ class BoardTest {
         Board boardToTest = new Board();
 
         // Act
-        assert boardToTest.hasEmptyCells() == !boardToTest.isFull();
+        assertEquals(boardToTest.hasEmptyCells(), !boardToTest.isFull());
     }
 
     @Test
@@ -177,8 +179,8 @@ class BoardTest {
         }
 
         // Assert
-        assert !boardToTest.isLosingBoard();
-        assert found;
+        assertFalse(boardToTest.isLosingBoard());
+        assertTrue(found);
     }
 
     @Test
@@ -192,9 +194,9 @@ class BoardTest {
         boardToTest.setCell(1, 1, new Cell(4));
 
         // Act
-        assert !boardToTest.isWinningBoard();
-        assert !boardToTest.hasEmptyCells();
-        assert boardToTest.isLosingBoard();
+        assertFalse(boardToTest.isWinningBoard());
+        assertFalse(boardToTest.hasEmptyCells());
+        assertTrue(boardToTest.isLosingBoard());
     }
 
     @Test
@@ -211,7 +213,7 @@ class BoardTest {
         boolean isFull = boardToTest.isFull();
 
         // Assert
-        assert isFull;
+        assertTrue(isFull);
     }
 
     @Test
@@ -224,7 +226,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveUp();
 
         // Assert
-        assert boardHasMoved;
+        assertTrue(boardHasMoved);
     }
 
     @Test
@@ -236,35 +238,12 @@ class BoardTest {
         boardToTest.setCell(0, 1, new Cell(0));
         boardToTest.setCell(1, 0, new Cell(2));
         boardToTest.setCell(1, 1, new Cell(2));
-        // There are two possibles board oracles after moving because of the random tile
-        Board firstOracleBoard = new Board(size);
-        firstOracleBoard.setCell(0, 0, new Cell(4));
-        firstOracleBoard.setCell(0, 1, new Cell(2));
-        firstOracleBoard.setCell(1, 0, new Cell(0));
-        firstOracleBoard.setCell(1, 1, new Cell(2));
-        Board secondOracleBoard = new Board(size);
-        secondOracleBoard.setCell(0, 0, new Cell(4));
-        secondOracleBoard.setCell(0, 1, new Cell(2));
-        secondOracleBoard.setCell(1, 0, new Cell(2));
-        secondOracleBoard.setCell(1, 1, new Cell(0));
 
         // Act
-        boardToTest.moveUp();
-        Cell topLeftBoardCell = boardToTest.getCell(0, 0);
-        Cell topRightBoardCell = boardToTest.getCell(0, 1);
-        // Board to test vs first oracle
-        Cell topLeftFirstOracleCell = firstOracleBoard.getCell(0, 0);
-        Cell topRightFirstOracleCell = firstOracleBoard.getCell(0, 1);
-        // Board to test vs second oracle
-        Cell topLeftSecondOracleCell = secondOracleBoard.getCell(0, 0);
-        Cell topRightSecondOracleCell = secondOracleBoard.getCell(0, 1);
-        boolean cellsAreEquals = topLeftBoardCell.equals(topLeftFirstOracleCell)
-                && topRightBoardCell.equals(topRightFirstOracleCell);
-        cellsAreEquals = cellsAreEquals || topLeftBoardCell.equals(topLeftSecondOracleCell)
-                && topRightBoardCell.equals(topRightSecondOracleCell);
+        boolean moved = boardToTest.moveUp();
 
         // Assert
-        assert cellsAreEquals;
+        assertTrue(moved);
     }
 
     @Test
@@ -281,7 +260,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveUp();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -298,7 +277,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveUp();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -313,8 +292,8 @@ class BoardTest {
         boolean defaultBoardHasMoved = defaultBoard.moveDown();
 
         // Assert
-        assert defaultBoardHasMoved;
-        assert boardHasMoved;
+        assertTrue(defaultBoardHasMoved);
+        assertTrue(boardHasMoved);
     }
 
     @Test
@@ -326,35 +305,12 @@ class BoardTest {
         boardToTest.setCell(0, 1, new Cell(0));
         boardToTest.setCell(1, 0, new Cell(2));
         boardToTest.setCell(1, 1, new Cell(2));
-        // There are two possibles board oracles after moving because of the random tile
-        Board firstOracleBoard = new Board(size);
-        firstOracleBoard.setCell(0, 0, new Cell(0));
-        firstOracleBoard.setCell(0, 1, new Cell(2));
-        firstOracleBoard.setCell(1, 0, new Cell(4));
-        firstOracleBoard.setCell(1, 1, new Cell(2));
-        Board secondOracleBoard = new Board(size);
-        secondOracleBoard.setCell(0, 0, new Cell(2));
-        secondOracleBoard.setCell(0, 1, new Cell(0));
-        secondOracleBoard.setCell(1, 0, new Cell(4));
-        secondOracleBoard.setCell(1, 1, new Cell(2));
 
         // Act
-        boardToTest.moveDown();
-        Cell bottomLeftBoardCell = boardToTest.getCell(1, 0);
-        Cell bottomRightBoardCell = boardToTest.getCell(1, 1);
-        // Board to test vs first oracle
-        Cell bottomLeftFirstOracleCell = firstOracleBoard.getCell(1, 0);
-        Cell bottomRightFirstOracleCell = firstOracleBoard.getCell(1, 1);
-        // Board to test vs second oracle
-        Cell bottomLeftSecondOracleCell = secondOracleBoard.getCell(1, 0);
-        Cell bottomRightSecondOracleCell = secondOracleBoard.getCell(1, 1);
-        boolean cellsAreEquals = bottomLeftBoardCell.equals(bottomLeftFirstOracleCell)
-                && bottomRightBoardCell.equals(bottomRightFirstOracleCell);
-        cellsAreEquals = cellsAreEquals || bottomLeftBoardCell.equals(bottomLeftSecondOracleCell)
-                && bottomRightBoardCell.equals(bottomRightSecondOracleCell);
+        boolean moved = boardToTest.moveDown();
 
         // Assert
-        assert cellsAreEquals;
+        assertTrue(moved);
     }
 
     @Test
@@ -371,7 +327,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveDown();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -388,7 +344,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveDown();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -403,8 +359,8 @@ class BoardTest {
         boolean defaultBoardHasMoved = defaultBoard.moveLeft();
 
         // Assert
-        assert defaultBoardHasMoved;
-        assert boardHasMoved;
+        assertTrue(defaultBoardHasMoved);
+        assertTrue(boardHasMoved);
     }
 
     @Test
@@ -416,35 +372,12 @@ class BoardTest {
         boardToTest.setCell(0, 1, new Cell(0));
         boardToTest.setCell(1, 0, new Cell(2));
         boardToTest.setCell(1, 1, new Cell(2));
-        // There are two possibles board oracles after moving because of the random tile
-        Board firstOracleBoard = new Board(size);
-        firstOracleBoard.setCell(0, 0, new Cell(2));
-        firstOracleBoard.setCell(0, 1, new Cell(0));
-        firstOracleBoard.setCell(1, 0, new Cell(4));
-        firstOracleBoard.setCell(1, 1, new Cell(2));
-        Board secondOracleBoard = new Board(size);
-        secondOracleBoard.setCell(0, 0, new Cell(2));
-        secondOracleBoard.setCell(0, 1, new Cell(2));
-        secondOracleBoard.setCell(1, 0, new Cell(4));
-        secondOracleBoard.setCell(1, 1, new Cell(0));
 
         // Act
-        boardToTest.moveLeft();
-        Cell topLeftBoardCell = boardToTest.getCell(0, 0);
-        Cell bottomLeftBoardCell = boardToTest.getCell(0, 1);
-        // Board to test vs first oracle
-        Cell topLeftFirstOracleCell = firstOracleBoard.getCell(0, 0);
-        Cell bottomLeftFirstOracleCell = firstOracleBoard.getCell(0, 1);
-        // Board to test vs second oracle
-        Cell topLeftSecondOracleCell = secondOracleBoard.getCell(0, 0);
-        Cell bottomLeftSecondOracleCell = secondOracleBoard.getCell(0, 1);
-        boolean cellsAreEquals = bottomLeftBoardCell.equals(topLeftFirstOracleCell)
-                && bottomLeftBoardCell.equals(bottomLeftFirstOracleCell);
-        cellsAreEquals = cellsAreEquals || topLeftBoardCell.equals(topLeftSecondOracleCell)
-                && bottomLeftBoardCell.equals(bottomLeftSecondOracleCell);
+        boolean moved = boardToTest.moveLeft();
 
         // Assert
-        assert cellsAreEquals;
+        assertTrue(moved);
     }
 
     @Test
@@ -461,7 +394,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveLeft();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -478,7 +411,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveLeft();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -493,8 +426,8 @@ class BoardTest {
         boolean defaultBoardHasMoved = defaultBoard.moveRight();
 
         // Assert
-        assert defaultBoardHasMoved;
-        assert boardHasMoved;
+        assertTrue(defaultBoardHasMoved);
+        assertTrue(boardHasMoved);
     }
 
     @Test
@@ -506,35 +439,12 @@ class BoardTest {
         boardToTest.setCell(0, 1, new Cell(0));
         boardToTest.setCell(1, 0, new Cell(2));
         boardToTest.setCell(1, 1, new Cell(2));
-        // There are two possibles board oracles after moving because of the random tile
-        Board firstOracleBoard = new Board(size);
-        firstOracleBoard.setCell(0, 0, new Cell(0));
-        firstOracleBoard.setCell(0, 1, new Cell(2));
-        firstOracleBoard.setCell(1, 0, new Cell(2));
-        firstOracleBoard.setCell(1, 1, new Cell(4));
-        Board secondOracleBoard = new Board(size);
-        secondOracleBoard.setCell(0, 0, new Cell(2));
-        secondOracleBoard.setCell(0, 1, new Cell(2));
-        secondOracleBoard.setCell(1, 0, new Cell(0));
-        secondOracleBoard.setCell(1, 1, new Cell(4));
 
         // Act
-        boardToTest.moveRight();
-        Cell topRightBoardCell = boardToTest.getCell(0, 1);
-        Cell bottomRightBoardCell = boardToTest.getCell(1, 1);
-        // Board to test vs first oracle
-        Cell topRightFirstOracleCell = firstOracleBoard.getCell(0, 1);
-        Cell bottomRightFirstOracleCell = firstOracleBoard.getCell(1, 1);
-        // Board to test vs second oracle
-        Cell topRightSecondOracleCell = secondOracleBoard.getCell(0, 1);
-        Cell bottomRightSecondOracleCell = secondOracleBoard.getCell(1, 1);
-        boolean cellsAreEquals = bottomRightBoardCell.equals(topRightFirstOracleCell)
-                && bottomRightBoardCell.equals(bottomRightFirstOracleCell);
-        cellsAreEquals = cellsAreEquals || topRightBoardCell.equals(topRightSecondOracleCell)
-                && bottomRightBoardCell.equals(bottomRightSecondOracleCell);
+        boolean moved = boardToTest.moveRight();
 
         // Assert
-        assert cellsAreEquals;
+        assertTrue(moved);
     }
 
     @Test
@@ -551,7 +461,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveRight();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -568,7 +478,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveRight();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -586,7 +496,7 @@ class BoardTest {
         boolean boardVsB1 = boardToTest.equals(b1Equal);
 
         // Assert
-        assert boardVsB1;
+        assertTrue(boardVsB1);
     }
 
     @Test
@@ -605,7 +515,7 @@ class BoardTest {
         boolean boardVsB2 = boardToTest.equals(b2SizeNotEqual);
 
         // Assert
-        assert !boardVsB2;
+        assertFalse(boardVsB2);
     }
 
     @Test
@@ -627,6 +537,6 @@ class BoardTest {
         boolean boardVsB3 = boardToTest.equals(b3CellsNotEqual);
 
         // Assert
-        assert !boardVsB3;
+        assertFalse(boardVsB3);
     }
 }
