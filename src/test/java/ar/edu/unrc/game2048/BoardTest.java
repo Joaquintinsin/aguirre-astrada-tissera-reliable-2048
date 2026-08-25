@@ -3,6 +3,7 @@ package ar.edu.unrc.game2048;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.HashSet;
@@ -145,7 +146,7 @@ class BoardTest {
         }
 
         // Assert
-        assert boardToTest.getEmptyPositions().equals(emptyPositions);
+        assertEquals(boardToTest.getEmptyPositions(), emptyPositions);
     }
 
     @Test
@@ -154,7 +155,7 @@ class BoardTest {
         Board boardToTest = new Board();
 
         // Act
-        assert boardToTest.hasEmptyCells() == !boardToTest.isFull();
+        assertEquals(boardToTest.hasEmptyCells(), !boardToTest.isFull());
     }
 
     @Test
@@ -178,8 +179,8 @@ class BoardTest {
         }
 
         // Assert
-        assert !boardToTest.isLosingBoard();
-        assert found;
+        assertFalse(boardToTest.isLosingBoard());
+        assertTrue(found);
     }
 
     @Test
@@ -193,9 +194,9 @@ class BoardTest {
         boardToTest.setCell(1, 1, new Cell(4));
 
         // Act
-        assert !boardToTest.isWinningBoard();
-        assert !boardToTest.hasEmptyCells();
-        assert boardToTest.isLosingBoard();
+        assertFalse(boardToTest.isWinningBoard());
+        assertFalse(boardToTest.hasEmptyCells());
+        assertTrue(boardToTest.isLosingBoard());
     }
 
     @Test
@@ -212,7 +213,7 @@ class BoardTest {
         boolean isFull = boardToTest.isFull();
 
         // Assert
-        assert isFull;
+        assertTrue(isFull);
     }
 
     @Test
@@ -225,7 +226,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveUp();
 
         // Assert
-        assert boardHasMoved;
+        assertTrue(boardHasMoved);
     }
 
     @Test
@@ -259,7 +260,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveUp();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -276,7 +277,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveUp();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -291,8 +292,8 @@ class BoardTest {
         boolean defaultBoardHasMoved = defaultBoard.moveDown();
 
         // Assert
-        assert defaultBoardHasMoved;
-        assert boardHasMoved;
+        assertTrue(defaultBoardHasMoved);
+        assertTrue(boardHasMoved);
     }
 
     @Test
@@ -326,7 +327,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveDown();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -343,7 +344,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveDown();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -358,8 +359,8 @@ class BoardTest {
         boolean defaultBoardHasMoved = defaultBoard.moveLeft();
 
         // Assert
-        assert defaultBoardHasMoved;
-        assert boardHasMoved;
+        assertTrue(defaultBoardHasMoved);
+        assertTrue(boardHasMoved);
     }
 
     @Test
@@ -393,7 +394,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveLeft();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -410,7 +411,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveLeft();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -460,7 +461,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveRight();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -477,7 +478,7 @@ class BoardTest {
         boolean boardHasMoved = boardToTest.moveRight();
 
         // Assert
-        assert !boardHasMoved;
+        assertFalse(boardHasMoved);
     }
 
     @Test
@@ -495,7 +496,7 @@ class BoardTest {
         boolean boardVsB1 = boardToTest.equals(b1Equal);
 
         // Assert
-        assert boardVsB1;
+        assertTrue(boardVsB1);
     }
 
     @Test
@@ -514,7 +515,7 @@ class BoardTest {
         boolean boardVsB2 = boardToTest.equals(b2SizeNotEqual);
 
         // Assert
-        assert !boardVsB2;
+        assertFalse(boardVsB2);
     }
 
     @Test
@@ -536,6 +537,6 @@ class BoardTest {
         boolean boardVsB3 = boardToTest.equals(b3CellsNotEqual);
 
         // Assert
-        assert !boardVsB3;
+        assertFalse(boardVsB3);
     }
 }
