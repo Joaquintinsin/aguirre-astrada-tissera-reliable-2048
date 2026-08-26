@@ -247,6 +247,22 @@ public class Board {
     // ====================
 
     /**
+     * Remove empty cells of a given list of cells
+     *
+     * @param cellList the list to remove the empty cells
+     * @return a list of cells containing the non-empty cells
+     */
+    protected List<Cell> removeEmptyCells(List<Cell> cellList) {
+        List<Cell> nonEmpty = new ArrayList<>();
+        for (Cell cell : cellList) {
+            if (!cell.isEmpty()) {
+                nonEmpty.add(cell);
+            }
+        }
+        return nonEmpty;
+    }
+
+    /**
      * Moves all tiles upward.
      *
      * @return true if the board changed, false otherwise
