@@ -247,6 +247,59 @@ public class Board {
     // ====================
 
     /**
+     * Remove empty cells of a given list of cells
+     *
+     * @param cellList the list to remove the empty cells
+     * @return a list of cells containing the non-empty cells
+     */
+    protected List<Cell> removeEmptyCells(List<Cell> cellList) {
+        List<Cell> nonEmpty = new ArrayList<>();
+        for (Cell cell : cellList) {
+            if (!cell.isEmpty()) {
+                nonEmpty.add(cell);
+            }
+        }
+        return nonEmpty;
+    }
+
+    /**
+     * Merge adjacent equal cells
+     *
+     * @param cellList a list of cells
+     * @return a list of cells that were able to be merged
+     */
+    protected List<Cell> mergeAdjacentEqualsCells(List<Cell> cellList) {
+        List<Cell> merged = new ArrayList<>();
+        int i = 0;
+        while (i < cellList.size()) {
+            if (i + 1 < cellList.size() &&
+                    cellList.get(i).canMergeWith(cellList.get(i + 1))) {
+                Cell mergedCell = cellList.get(i).mergeWith(cellList.get(i + 1));
+                merged.add(mergedCell);
+                score += mergedCell.getValue();
+                i += 2;
+            } else {
+                merged.add(cellList.get(i));
+                i++;
+            }
+        }
+        return merged;
+    }
+
+    /**
+     * Pad with empty cells
+     *
+     * Completes the given list of cells already merged with empty cells
+     *
+     * @param merged a list of cells merged
+     */
+    protected void padWithEmptyCells(List<Cell> merged) {
+        while (merged.size() < size) {
+            merged.add(Cell.EMPTY);
+        }
+    }
+
+    /**
      * Moves all tiles upward.
      *
      * @return true if the board changed, false otherwise
