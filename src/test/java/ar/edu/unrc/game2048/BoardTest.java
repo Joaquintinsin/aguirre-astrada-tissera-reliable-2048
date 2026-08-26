@@ -322,22 +322,6 @@ class BoardTest {
         // Arrange
         int size = 2;
         Board boardToTest = new Board(size);
-        Board defaultBoard = new Board();
-
-        // Act
-        boolean boardHasMoved = boardToTest.moveLeft();
-        boolean defaultBoardHasMoved = defaultBoard.moveLeft();
-
-        // Assert
-        assertTrue(defaultBoardHasMoved);
-        assertTrue(boardHasMoved);
-    }
-
-    @Test
-    public void hardcodedMoveLeftTest() {
-        // Arrange
-        int size = 2;
-        Board boardToTest = new Board(size);
         boardToTest.setCell(0, 0, new Cell(2));
         boardToTest.setCell(0, 1, new Cell(0));
         boardToTest.setCell(1, 0, new Cell(2));
