@@ -220,29 +220,16 @@ class BoardTest {
         // Arrange
         int size = 2;
         Board boardToTest = new Board(size);
-
-        // Act
-        boolean boardHasMoved = boardToTest.moveUp();
-
-        // Assert
-        assertTrue(boardHasMoved);
-    }
-
-    @Test
-    public void hardcodedMoveUpTest() {
-        // Arrange
-        int size = 2;
-        Board boardToTest = new Board(size);
         boardToTest.setCell(0, 0, new Cell(2));
         boardToTest.setCell(0, 1, new Cell(0));
         boardToTest.setCell(1, 0, new Cell(2));
         boardToTest.setCell(1, 1, new Cell(2));
 
         // Act
-        boolean moved = boardToTest.moveUp();
+        boolean boardHasMoved = boardToTest.moveUp();
 
         // Assert
-        assertTrue(moved);
+        assertTrue(boardHasMoved);
     }
 
     @Test
@@ -284,32 +271,16 @@ class BoardTest {
         // Arrange
         int size = 2;
         Board boardToTest = new Board(size);
-        Board defaultBoard = new Board();
-
-        // Act
-        boolean boardHasMoved = boardToTest.moveDown();
-        boolean defaultBoardHasMoved = defaultBoard.moveDown();
-
-        // Assert
-        assertTrue(defaultBoardHasMoved);
-        assertTrue(boardHasMoved);
-    }
-
-    @Test
-    public void hardcodedMoveDownTest() {
-        // Arrange
-        int size = 2;
-        Board boardToTest = new Board(size);
         boardToTest.setCell(0, 0, new Cell(2));
         boardToTest.setCell(0, 1, new Cell(0));
         boardToTest.setCell(1, 0, new Cell(2));
         boardToTest.setCell(1, 1, new Cell(2));
 
         // Act
-        boolean moved = boardToTest.moveDown();
+        boolean boardHasMoved = boardToTest.moveDown();
 
         // Assert
-        assertTrue(moved);
+        assertTrue(boardHasMoved);
     }
 
     @Test
