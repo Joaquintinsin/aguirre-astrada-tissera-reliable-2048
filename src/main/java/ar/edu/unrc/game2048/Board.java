@@ -610,46 +610,4 @@ public class Board {
         sb.append("\n");
         return sb.toString();
     }
-
-    // ==================== INNER CLASSES ====================
-
-    /**
-     * Represents a direction on the board.
-     */
-    public enum Direction {
-        UP, DOWN, LEFT, RIGHT
-    }
-
-    /**
-     * Represents a position on the board.
-     */
-    public static class Position {
-        public final int row;
-        public final int col;
-
-        public Position(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o)
-                return true;
-            if (o == null || getClass() != o.getClass())
-                return false;
-            Position position = (Position) o;
-            return row == position.row && col == position.col;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(row, col);
-        }
-
-        @Override
-        public String toString() {
-            return "(" + row + ", " + col + ")";
-        }
-    }
 }
