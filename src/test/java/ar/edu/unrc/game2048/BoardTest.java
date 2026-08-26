@@ -10,8 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unrc.game2048.Board.Position;
-
 class BoardTest {
     @Test
     public void defaultConstructorTest() {
