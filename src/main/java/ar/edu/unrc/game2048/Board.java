@@ -287,6 +287,19 @@ public class Board {
     }
 
     /**
+     * Pad with empty cells
+     *
+     * Completes the given list of cells already merged with empty cells
+     *
+     * @param merged a list of cells merged
+     */
+    protected void padWithEmptyCells(List<Cell> merged) {
+        while (merged.size() < size) {
+            merged.add(Cell.EMPTY);
+        }
+    }
+
+    /**
      * Moves all tiles upward.
      *
      * @return true if the board changed, false otherwise
