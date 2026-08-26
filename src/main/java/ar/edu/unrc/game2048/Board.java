@@ -263,6 +263,30 @@ public class Board {
     }
 
     /**
+     * Merge adjacent equal cells
+     *
+     * @param cellList a list of cells
+     * @return a list of cells that were able to be merged
+     */
+    protected List<Cell> mergeAdjacentEqualsCells(List<Cell> cellList) {
+        List<Cell> merged = new ArrayList<>();
+        int i = 0;
+        while (i < cellList.size()) {
+            if (i + 1 < cellList.size() &&
+                    cellList.get(i).canMergeWith(cellList.get(i + 1))) {
+                Cell mergedCell = cellList.get(i).mergeWith(cellList.get(i + 1));
+                merged.add(mergedCell);
+                score += mergedCell.getValue();
+                i += 2;
+            } else {
+                merged.add(cellList.get(i));
+                i++;
+            }
+        }
+        return merged;
+    }
+
+    /**
      * Moves all tiles upward.
      *
      * @return true if the board changed, false otherwise
