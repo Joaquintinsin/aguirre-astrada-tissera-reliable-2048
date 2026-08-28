@@ -354,33 +354,13 @@ public class Board {
             }
 
             // Remove empty cells
-            List<Cell> nonEmpty = new ArrayList<>();
-            for (Cell cell : column) {
-                if (!cell.isEmpty()) {
-                    nonEmpty.add(cell);
-                }
-            }
+            List<Cell> nonEmpty = removeEmptyCells(column);
 
             // Merge adjacent equal cells
-            List<Cell> merged = new ArrayList<>();
-            int i = 0;
-            while (i < nonEmpty.size()) {
-                if (i + 1 < nonEmpty.size() &&
-                        nonEmpty.get(i).canMergeWith(nonEmpty.get(i + 1))) {
-                    Cell mergedCell = nonEmpty.get(i).mergeWith(nonEmpty.get(i + 1));
-                    merged.add(mergedCell);
-                    score += mergedCell.getValue();
-                    i += 2;
-                } else {
-                    merged.add(nonEmpty.get(i));
-                    i++;
-                }
-            }
+            List<Cell> merged = mergeAdjacentEqualsCells(nonEmpty);
 
             // Pad with empty cells
-            while (merged.size() < size) {
-                merged.add(Cell.EMPTY);
-            }
+            padWithEmptyCells(merged);
 
             // Put back into the column (reverse back to original order)
             for (int row = size - 1; row >= 0; row--) {
