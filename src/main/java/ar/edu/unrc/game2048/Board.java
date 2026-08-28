@@ -314,16 +314,12 @@ public class Board {
             for (int row = 0; row < size; row++) {
                 column.add(grid[row][col]);
             }
-
             // Remove empty cells (slide up)
             List<Cell> nonEmpty = removeEmptyCells(column);
-
             // Merge adjacent equal cells
             List<Cell> merged = mergeAdjacentEqualsCells(nonEmpty);
-            
             // Pad with empty cells
             padWithEmptyCells(merged);
-
             // Put back into the column
             for (int row = 0; row < size; row++) {
                 grid[row][col] = merged.get(row);
@@ -352,13 +348,10 @@ public class Board {
             for (int row = size - 1; row >= 0; row--) {
                 column.add(grid[row][col]);
             }
-
             // Remove empty cells
             List<Cell> nonEmpty = removeEmptyCells(column);
-
             // Merge adjacent equal cells
             List<Cell> merged = mergeAdjacentEqualsCells(nonEmpty);
-
             // Pad with empty cells
             padWithEmptyCells(merged);
 
@@ -390,36 +383,12 @@ public class Board {
             for (int col = 0; col < size; col++) {
                 rowList.add(grid[row][col]);
             }
-
             // Remove empty cells
-            List<Cell> nonEmpty = new ArrayList<>();
-            for (Cell cell : rowList) {
-                if (!cell.isEmpty()) {
-                    nonEmpty.add(cell);
-                }
-            }
-
+            List<Cell> nonEmpty = removeEmptyCells(rowList);
             // Merge adjacent equal cells
-            List<Cell> merged = new ArrayList<>();
-            int i = 0;
-            while (i < nonEmpty.size()) {
-                if (i + 1 < nonEmpty.size() &&
-                        nonEmpty.get(i).canMergeWith(nonEmpty.get(i + 1))) {
-                    Cell mergedCell = nonEmpty.get(i).mergeWith(nonEmpty.get(i + 1));
-                    merged.add(mergedCell);
-                    score += mergedCell.getValue();
-                    i += 2;
-                } else {
-                    merged.add(nonEmpty.get(i));
-                    i++;
-                }
-            }
-
+            List<Cell> merged = mergeAdjacentEqualsCells(nonEmpty);
             // Pad with empty cells
-            while (merged.size() < size) {
-                merged.add(Cell.EMPTY);
-            }
-
+            padWithEmptyCells(merged);
             // Put back into the row
             for (int col = 0; col < size; col++) {
                 grid[row][col] = merged.get(col);
