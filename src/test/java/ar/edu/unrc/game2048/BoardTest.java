@@ -168,26 +168,17 @@ class BoardTest {
     @Test
     public void isWinningBoardTest() {
         // Arrange
-        int win_value = 2048;
-        Cell winning_cell = new Cell(win_value);
+        Cell winning_cell = new Cell(Board.WINNING_VALUE);
         int size = 2;
         Board boardToTest = new Board(size);
         boardToTest.setCell(0, 0, winning_cell);
-        boolean found = false;
 
         // Act
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                Cell cellToTest = boardToTest.getCell(i, j);
-                if (cellToTest.equals(winning_cell)) {
-                    found = true;
-                }
-            }
-        }
+        boolean isWinningBoard = boardToTest.isWinningBoard();
 
         // Assert
+        assertTrue(isWinningBoard);
         assertFalse(boardToTest.isLosingBoard());
-        assertTrue(found);
     }
 
     @Test
