@@ -275,6 +275,25 @@ class BoardTest {
     }
 
     @Test
+    public void moveUpWhenTopRowIsFullAndCanNotMergeTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(4));
+        boardToTest.setCell(1, 0, new Cell(0));
+        boardToTest.setCell(1, 1, new Cell(0));
+        Board previousBoard = new Board(boardToTest);
+
+        // Act
+        boolean boardHasMoved = boardToTest.moveUp();
+
+        // Assert
+        assertFalse(boardHasMoved);
+        assertEquals(previousBoard, boardToTest);
+    }
+
+    @Test
     public void moveDownTest() {
         // Arrange
         int size = 2;
@@ -323,6 +342,25 @@ class BoardTest {
 
         // Assert
         assertFalse(boardHasMoved);
+    }
+
+    @Test
+    public void moveDownWhenBottomRowIsFullAndCanNotMergeTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(0));
+        boardToTest.setCell(0, 1, new Cell(0));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(4));
+        Board previousBoard = new Board(boardToTest);
+
+        // Act
+        boolean boardHasMoved = boardToTest.moveDown();
+
+        // Assert
+        assertFalse(boardHasMoved);
+        assertEquals(previousBoard, boardToTest);
     }
 
     @Test
@@ -377,6 +415,25 @@ class BoardTest {
     }
 
     @Test
+    public void moveLeftWhenLeftColumnIsFullAndCanNotMergeTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(0));
+        boardToTest.setCell(1, 0, new Cell(4));
+        boardToTest.setCell(1, 1, new Cell(0));
+        Board previousBoard = new Board(boardToTest);
+
+        // Act
+        boolean boardHasMoved = boardToTest.moveLeft();
+
+        // Assert
+        assertFalse(boardHasMoved);
+        assertEquals(previousBoard, boardToTest);
+    }
+
+    @Test
     public void moveRightTest() {
         // Arrange
         int size = 2;
@@ -425,6 +482,25 @@ class BoardTest {
 
         // Assert
         assertFalse(boardHasMoved);
+    }
+
+    @Test
+    public void moveRightWhenRightColumnIsFullAndCanNotMergeTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(0));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 0, new Cell(0));
+        boardToTest.setCell(1, 1, new Cell(4));
+        Board previousBoard = new Board(boardToTest);
+
+        // Act
+        boolean boardHasMoved = boardToTest.moveRight();
+
+        // Assert
+        assertFalse(boardHasMoved);
+        assertEquals(previousBoard, boardToTest);
     }
 
     @Test
@@ -485,4 +561,5 @@ class BoardTest {
         // Assert
         assertFalse(boardVsB3);
     }
+
 }
