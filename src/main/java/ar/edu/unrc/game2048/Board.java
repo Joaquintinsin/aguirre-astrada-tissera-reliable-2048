@@ -305,6 +305,10 @@ public class Board {
      * @return true if the board changed, false otherwise
      */
     public boolean moveUp() {
+        if (isLosingBoard() || isWinningBoard()) {
+            return false;
+        }
+
         Board previous = new Board(this);
 
         // For each column, slide up
@@ -339,6 +343,10 @@ public class Board {
      * @return true if the board changed, false otherwise
      */
     public boolean moveDown() {
+        if (isLosingBoard() || isWinningBoard()) {
+            return false;
+        }
+
         Board previous = new Board(this);
 
         // For each column, slide down
@@ -374,6 +382,10 @@ public class Board {
      * @return true if the board changed, false otherwise
      */
     public boolean moveLeft() {
+        if (isLosingBoard() || isWinningBoard()) {
+            return false;
+        }
+
         Board previous = new Board(this);
 
         // For each row, slide left
@@ -408,6 +420,10 @@ public class Board {
      * @return true if the board changed, false otherwise
      */
     public boolean moveRight() {
+        if (isLosingBoard() || isWinningBoard()) {
+            return false;
+        }
+
         Board previous = new Board(this);
 
         // For each row, slide right
@@ -423,7 +439,7 @@ public class Board {
             List<Cell> merged = mergeAdjacentEqualsCells(nonEmpty);
             // Pad with empty cells
             padWithEmptyCells(merged);
-            
+
             // Put back into the row (reverse back to original order)
             for (int col = size - 1; col >= 0; col--) {
                 grid[row][col] = merged.get(size - 1 - col);
