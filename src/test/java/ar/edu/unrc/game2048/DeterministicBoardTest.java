@@ -1,6 +1,7 @@
 package ar.edu.unrc.game2048;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -75,6 +76,25 @@ public class DeterministicBoardTest {
     }
 
     @Test
+    public void moveUpWhenTopRowIsFullAndCanNotMergeWithDeterministicPlacementTest() {
+        // Arrange
+        int size = 2;
+        Board board = new Board(size, new DeterministicPlacement());
+        board.setCell(0, 0, new Cell(2));
+        board.setCell(0, 1, new Cell(4));
+        board.setCell(1, 0, new Cell(0));
+        board.setCell(1, 1, new Cell(0));
+        Board previousBoard = new Board(board);
+
+        // Act
+        boolean moved = board.moveUp();
+
+        // Assert
+        assertFalse(moved);
+        assertEquals(previousBoard, board);
+    }
+
+    @Test
     public void moveDownWithDeterministicPlacementTest() {
         // Arrange
         int size = 2;
@@ -102,6 +122,25 @@ public class DeterministicBoardTest {
         assertEquals(Cell.EMPTY, board.getCell(0, 1));
         assertEquals(new Cell(4), board.getCell(1, 0));
         assertEquals(new Cell(2), board.getCell(1, 1));
+    }
+
+    @Test
+    public void moveDownWhenBottomRowIsFullAndCanNotMergeWithDeterministicPlacementTest() {
+        // Arrange
+        int size = 2;
+        Board board = new Board(size, new DeterministicPlacement());
+        board.setCell(0, 0, new Cell(0));
+        board.setCell(0, 1, new Cell(0));
+        board.setCell(1, 0, new Cell(2));
+        board.setCell(1, 1, new Cell(4));
+        Board previousBoard = new Board(board);
+
+        // Act
+        boolean moved = board.moveDown();
+
+        // Assert
+        assertFalse(moved);
+        assertEquals(previousBoard, board);
     }
 
     @Test
@@ -135,6 +174,25 @@ public class DeterministicBoardTest {
     }
 
     @Test
+    public void moveLeftWhenLeftColumnIsFullAndCanNotMergeWithDeterministicPlacementTest() {
+        // Arrange
+        int size = 2;
+        Board board = new Board(size, new DeterministicPlacement());
+        board.setCell(0, 0, new Cell(2));
+        board.setCell(0, 1, new Cell(0));
+        board.setCell(1, 0, new Cell(4));
+        board.setCell(1, 1, new Cell(0));
+        Board previousBoard = new Board(board);
+
+        // Act
+        boolean moved = board.moveLeft();
+
+        // Assert
+        assertFalse(moved);
+        assertEquals(previousBoard, board);
+    }
+
+    @Test
     public void moveRightWithDeterministicPlacementTest() {
         // Arrange
         int size = 2;
@@ -162,5 +220,24 @@ public class DeterministicBoardTest {
         assertEquals(new Cell(2), board.getCell(0, 1));
         assertEquals(Cell.EMPTY, board.getCell(1, 0));
         assertEquals(new Cell(4), board.getCell(1, 1));
+    }
+
+    @Test
+    public void moveRightWhenRightColumnIsFullAndCanNotMergeWithDeterministicPlacementTest() {
+        // Arrange
+        int size = 2;
+        Board board = new Board(size, new DeterministicPlacement());
+        board.setCell(0, 0, new Cell(0));
+        board.setCell(0, 1, new Cell(2));
+        board.setCell(1, 0, new Cell(0));
+        board.setCell(1, 1, new Cell(4));
+        Board previousBoard = new Board(board);
+
+        // Act
+        boolean moved = board.moveRight();
+
+        // Assert
+        assertFalse(moved);
+        assertEquals(previousBoard, board);
     }
 }
