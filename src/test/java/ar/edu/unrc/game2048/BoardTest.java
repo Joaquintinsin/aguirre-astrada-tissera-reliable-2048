@@ -207,6 +207,32 @@ class BoardTest {
     }
 
     @Test
+    public void isLosingBoardWithHorizontalMergeAvailableTest() {
+        // Arrange
+        Board board = new Board(2);
+        board.setCell(0, 0, new Cell(2));
+        board.setCell(0, 1, new Cell(2));
+        board.setCell(1, 0, new Cell(4));
+        board.setCell(1, 1, new Cell(8));
+
+        // Act & Assert
+        assertFalse(board.isLosingBoard());
+    }
+
+    @Test
+    public void isLosingBoardWithVerticalMergeAvailableTest() {
+        // Arrange
+        Board board = new Board(2);
+        board.setCell(0, 0, new Cell(2));
+        board.setCell(0, 1, new Cell(4));
+        board.setCell(1, 0, new Cell(2));
+        board.setCell(1, 1, new Cell(8));
+
+        // Act & Assert
+        assertFalse(board.isLosingBoard());
+    }
+
+    @Test
     public void isFullTest() {
         // Arrange
         int size = 2;
