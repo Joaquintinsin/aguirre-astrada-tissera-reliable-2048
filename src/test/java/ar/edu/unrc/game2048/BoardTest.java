@@ -52,6 +52,16 @@ class BoardTest {
     }
 
     @Test
+    public void nonDeterministicStrategyConstructorTest() {
+        // Arrange & Act
+        int inputSize = 6;
+        NonDeterministicPlacement strat = new NonDeterministicPlacement();
+        Board board = new Board(inputSize, strat);
+        // Assert
+        assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
+    }
+
+    @Test
     public void getSizeTest() {
         // Arrange
         int inputSize = 5;
