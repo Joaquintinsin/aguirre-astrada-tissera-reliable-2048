@@ -32,6 +32,19 @@ mvn exec:java -Dexec.mainClass="ar.edu.unrc.game2048.MainCLI"
 # Run tests (after you write them)
 mvn test
 ```
+
+### Code Coverage (JaCoCo)
+
+The project uses the [JaCoCo Maven plugin] to measure test coverage.
+
+```bash
+# Run tests and generate the coverage report
+mvn verify
+
+# Open the HTML report
+target/site/jacoco/index.html
+```
+
 ## Phase 1: Write Unit Tests
 
 ### Task 1.1: Test Cell Class
