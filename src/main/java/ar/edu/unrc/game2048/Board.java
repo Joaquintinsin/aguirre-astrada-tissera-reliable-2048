@@ -48,6 +48,11 @@ public class Board {
     private int score;
 
     /**
+     * Placement strategy after moving the tiles.
+     */
+    private PlacementStrategy strategy;
+
+    /**
      * Creates a new board of the default size (4x4) with two random tiles.
      */
     public Board() {
@@ -68,8 +73,25 @@ public class Board {
         this.grid = new Cell[size][size];
         this.score = 0;
         initializeEmpty();
-        addRandomTile();
-        addRandomTile();
+        this.strategy = new NonDeterministicPlacement();
+        this.strategy.addTile(this);
+        this.strategy.addTile(this);
+    }
+
+    public Board(int size, PlacementStrategy strat) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Board size must be positive: " + size);
+        }
+        this.strategy = strat;
+        if (strat == null) {
+            this.strategy = new NonDeterministicPlacement();
+        }
+        this.size = size;
+        this.grid = new Cell[size][size];
+        this.score = 0;
+        initializeEmpty();
+        this.strategy.addTile(this);
+        this.strategy.addTile(this);
     }
 
     /**
@@ -81,6 +103,7 @@ public class Board {
         this.size = other.size;
         this.grid = new Cell[size][size];
         this.score = other.score;
+        this.strategy = other.strategy;
         for (int r = 0; r < size; r++) {
             for (int c = 0; c < size; c++) {
                 this.grid[r][c] = other.grid[r][c];
@@ -97,6 +120,16 @@ public class Board {
                 grid[r][c] = Cell.EMPTY;
             }
         }
+    }
+
+    /**
+     * Gets the placement strategy of the board (deterministic or
+     * non-deterministic).
+     *
+     * @return the placement strategy
+     */
+    public PlacementStrategy getStrategy() {
+        return this.strategy;
     }
 
     /**
@@ -332,7 +365,7 @@ public class Board {
 
         boolean moved = !this.equals(previous);
         if (moved) {
-            addRandomTile(); // Add new random tile after successful move
+            this.strategy.addTile(this); // Add a tile after successful move depending on the game strategy
         }
         return moved;
     }
@@ -371,7 +404,7 @@ public class Board {
 
         boolean moved = !this.equals(previous);
         if (moved) {
-            addRandomTile(); // Add new random tile after successful move
+            this.strategy.addTile(this); // Add a tile after successful move depending on the game strategy
         }
         return moved;
     }
@@ -409,7 +442,7 @@ public class Board {
 
         boolean moved = !this.equals(previous);
         if (moved) {
-            addRandomTile(); // Add new random tile after successful move
+            this.strategy.addTile(this); // Add a tile after successful move depending on the game strategy
         }
         return moved;
     }
@@ -448,35 +481,9 @@ public class Board {
 
         boolean moved = !this.equals(previous);
         if (moved) {
-            addRandomTile(); // Add new random tile after successful move
+            this.strategy.addTile(this); // Add a tile after successful move depending on the game strategy
         }
         return moved;
-    }
-
-    // ==================== RANDOM TILE ADDITION (PRIVATE) ====================
-
-    /**
-     * Adds a random tile (2 or 4) to a random empty cell.
-     * This method is private to maintain encapsulation - tiles are only added
-     * during initialization or after successful moves.
-     *
-     * @return true if a tile was added, false if the board was full
-     */
-    private boolean addRandomTile() {
-        Set<Position> empty = getEmptyPositions();
-        if (empty.isEmpty()) {
-            return false;
-        }
-
-        // Choose random position
-        int randomIndex = (int) (Math.random() * empty.size());
-        Position pos = empty.stream().skip(randomIndex).findFirst().get();
-
-        // 90% chance of 2, 10% chance of 4 (standard 2048 rules)
-        int value = Math.random() < 0.9 ? 2 : 4;
-        grid[pos.row][pos.col] = new Cell(value);
-
-        return true;
     }
 
     // ==================== UTILITY METHODS ====================
