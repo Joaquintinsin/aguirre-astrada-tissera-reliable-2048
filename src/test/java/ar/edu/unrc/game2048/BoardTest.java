@@ -5,6 +5,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -786,4 +787,26 @@ class BoardTest {
                 "Score: 0\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n");
     }
 
+    // ==== Hash Code test ====
+    @Test
+    public void hashCodeTest() {
+        // Arrange
+        Board boardOne = new Board(4);
+        Board boardTwo = new Board(boardOne);
+        // Act
+        int hashCodeOne = boardOne.hashCode();
+        int hashCodeTwo = boardTwo.hashCode();
+        // Assert
+        assertEquals(hashCodeOne, hashCodeTwo);
+    }
+
+    @Test
+    public void hashCodeShouldNotReturnZeroTest() {
+        // Arrange
+        Board board = new Board(4, new DeterministicPlacement());
+        // Act
+        int result = board.hashCode();
+        // Assert
+        assertNotEquals(0, result);
+    }
 }
