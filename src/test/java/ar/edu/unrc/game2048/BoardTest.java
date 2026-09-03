@@ -181,6 +181,84 @@ class BoardTest {
         });
     }
 
+    // ValidatePosition tests
+
+    // Both valid values
+    @Test
+    public void validatePositionWithValidValuesTest() {
+        // Arrange
+        int size = 5;
+        Board board = new Board(size);
+        int row = 0;
+        int col = 0;
+
+        // Act
+        board.validatePosition(row, col);
+
+        // Assert
+        assertTrue(true);
+    }
+
+    // Invalid: Negative row value
+    @Test
+    public void validatePositionWithNegativeRowTest() {
+        // Arrange
+        int size = 5;
+        Board board = new Board(size);
+        int row = -1;
+        int col = 0;
+
+        // Act - Assert
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            board.validatePosition(row, col);
+        });
+    }
+
+    // Invalid: Row greater or equal than size
+    @Test
+    public void validatePositionWithGreaterRowThanSizeTest() {
+        // Arrange
+        int size = 5;
+        Board board = new Board(size);
+        int row = size;
+        int col = 0;
+
+        // Act - Assert
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            board.validatePosition(row, col);
+        });
+    }
+
+    // Invalid: Negative column value
+    @Test
+    public void validatePositionWithNegativeColumnTest() {
+        // Arrange
+        int size = 5;
+        Board board = new Board(size);
+        int row = 0;
+        int col = -1;
+
+        // Act - Assert
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            board.validatePosition(row, col);
+        });
+    }
+
+    // Invalid: Column greater or equal than size
+    @Test
+    public void validatePositionWithGreaterColumnThanSizeTest() {
+        // Arrange
+        int size = 5;
+        Board board = new Board(size);
+        int row = 0;
+        int col = size;
+
+        // Act - Assert
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            board.validatePosition(row, col);
+        });
+    }
+
     @Test
     public void getEmptyPositionTest() {
         // Arrange
