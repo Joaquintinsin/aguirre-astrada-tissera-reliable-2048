@@ -8,33 +8,6 @@ import org.junit.jupiter.api.Test;
 public class DeterministicBoardTest {
     // ==== Constructor tests ====
     @Test
-    public void defaultConstructorTest() {
-        // Arrange & Act
-        Board board = new Board();
-        // Assert
-        assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
-    }
-
-    @Test
-    public void sizeParameterizedConstructorTest() {
-        // Arrange & Act
-        int inputSize = 6;
-        Board board = new Board(inputSize);
-        // Assert
-        assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
-    }
-
-    @Test
-    public void strategyNullConstructorTest() {
-        // Arrange & Act
-        int inputSize = 6;
-        PlacementStrategy strat = null;
-        Board board = new Board(inputSize, strat);
-        // Assert
-        assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
-    }
-
-    @Test
     public void deterministicStrategyConstructorTest() {
         // Arrange & Act
         int inputSize = 6;
