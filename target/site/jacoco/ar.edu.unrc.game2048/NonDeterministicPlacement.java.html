@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NonDeterministicPlacement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">2048-game</a> &gt; <a href="index.source.html" class="el_package">ar.edu.unrc.game2048</a> &gt; <span class="el_source">NonDeterministicPlacement.java</span></div><h1>NonDeterministicPlacement.java</h1><pre class="source lang-java linenums">package ar.edu.unrc.game2048;
+
+import java.util.Set;
+
+// ==================== RANDOM TILE ADDITION ====================
+<span class="fc" id="L6">public class NonDeterministicPlacement implements PlacementStrategy {</span>
+    /**
+     * Adds a random tile (2 or 4) to a random empty cell.
+     * Tiles are only added during initialization or after successful moves.
+     *
+     * @return true if a tile was added, false if the board was full
+     */
+    @Override
+    public boolean addTile(Board board) {
+<span class="fc" id="L15">        Set&lt;Position&gt; empty = board.getEmptyPositions();</span>
+<span class="pc bpc" id="L16" title="1 of 2 branches missed.">        if (empty.isEmpty()) {</span>
+<span class="nc" id="L17">            return false;</span>
+        }
+
+        // Choose random position
+<span class="fc" id="L21">        int randomIndex = (int) (Math.random() * empty.size());</span>
+<span class="fc" id="L22">        Position pos = empty.stream().skip(randomIndex).findFirst().get();</span>
+
+        // 90% chance of 2, 10% chance of 4 (standard 2048 rules)
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        int value = Math.random() &lt; 0.9 ? 2 : 4;</span>
+<span class="fc" id="L26">        board.setCell(pos.row, pos.col, new Cell(value));</span>
+
+<span class="fc" id="L28">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
