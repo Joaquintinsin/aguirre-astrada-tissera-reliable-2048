@@ -132,6 +132,27 @@ class CellTest {
     }
 
     @Test
+    void testEqualsWithNull() {
+        // arrange
+        Cell cell = new Cell(2);
+        // act
+        boolean result = cell.equals(null);
+        // assert
+        assertFalse(result);
+    }
+
+    @Test
+    void testEqualsWithDifferentClass() {
+        // arrange
+        Cell cell = new Cell(2);
+        Object other = "2";
+        // act
+        boolean result = cell.equals(other);
+        // assert
+        assertFalse(result);
+    }
+
+    @Test
     void testHashCode() {
         // arrange
         Cell cell1 = new Cell(32);
