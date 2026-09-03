@@ -101,6 +101,26 @@ class BoardTest {
     }
 
     @Test
+    public void nonDeterministicAddTileReturnsFalseWhenBoardIsFullTest() {
+        // Arrange
+        int size = 2;
+        NonDeterministicPlacement strat = new NonDeterministicPlacement();
+        Board board = new Board(size, strat);
+        board.setCell(0, 0, new Cell(2));
+        board.setCell(0, 1, new Cell(4));
+        board.setCell(1, 0, new Cell(8));
+        board.setCell(1, 1, new Cell(16));
+        Board previousBoard = new Board(board);
+
+        // Act
+        boolean added = strat.addTile(board);
+
+        // Assert
+        assertFalse(added);
+        assertEquals(previousBoard, board);
+    }
+
+    @Test
     public void nonDeterministicStrategyConstructorTest() {
         // Arrange & Act
         int inputSize = 6;

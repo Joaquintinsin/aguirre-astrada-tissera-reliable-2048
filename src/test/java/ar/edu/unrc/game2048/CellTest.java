@@ -90,6 +90,28 @@ class CellTest {
     }
 
     @Test
+    void testCanMergeWithThisCellEmpty() {
+        // arrange
+        Cell cell1 = new Cell(0);
+        Cell cell2 = new Cell(4);
+        // act
+        boolean result = cell1.canMergeWith(cell2);
+        // assert
+        assertFalse(result);
+    }
+
+    @Test
+    void testCanMergeWithOtherCellEmpty() {
+        // arrange
+        Cell cell1 = new Cell(4);
+        Cell cell2 = new Cell(0);
+        // act
+        boolean result = cell1.canMergeWith(cell2);
+        // assert
+        assertFalse(result);
+    }
+
+    @Test
     void testMergeSussessful() {
         // arrange
         Cell cell1 = new Cell(4);
@@ -127,6 +149,27 @@ class CellTest {
         Cell cell2 = new Cell(4);
         // act
         boolean result = cell1.equals(cell2);
+        // assert
+        assertFalse(result);
+    }
+
+    @Test
+    void testEqualsWithNull() {
+        // arrange
+        Cell cell = new Cell(2);
+        // act
+        boolean result = cell.equals(null);
+        // assert
+        assertFalse(result);
+    }
+
+    @Test
+    void testEqualsWithDifferentClass() {
+        // arrange
+        Cell cell = new Cell(2);
+        Object other = "2";
+        // act
+        boolean result = cell.equals(other);
         // assert
         assertFalse(result);
     }
