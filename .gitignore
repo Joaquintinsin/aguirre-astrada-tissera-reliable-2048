@@ -25,3 +25,7 @@ replay_pid*
 
 .vscode/
 target/
+
+# Custom bash scripts
+1-*.sh
+2-*.sh
