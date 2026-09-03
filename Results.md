@@ -2,9 +2,8 @@
 
 Jacoco report:
 
--Cobertura total 77%
+-Cobertura total 79%
 
--Direcction 0%
 -Main 0%
 -Position 82%
 -Board 86%
