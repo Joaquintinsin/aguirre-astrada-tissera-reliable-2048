@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 class BoardTest {
+    // ==== Constructor tests ====
     @Test
     public void defaultConstructorTest() {
         // Arrange - Act
@@ -108,6 +109,8 @@ class BoardTest {
         assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
     }
 
+    // ==== Getter tests ====
+
     @Test
     public void getSizeTest() {
         // Arrange
@@ -150,6 +153,30 @@ class BoardTest {
     }
 
     @Test
+    public void getEmptyPositionTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+
+        // Act
+        Set<Position> emptyPositions = new HashSet<>();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Cell cellToTest = boardToTest.getCell(i, j);
+                if (cellToTest.isEmpty()) {
+                    Position cellPosition = new Position(i, j);
+                    emptyPositions.add(cellPosition);
+                }
+            }
+        }
+
+        // Assert
+        assertEquals(boardToTest.getEmptyPositions(), emptyPositions);
+    }
+
+    // ==== Setter tests ====
+
+    @Test
     public void setCellValidPositionTest() {
         // Arrange
         Board board = new Board(4);
@@ -181,7 +208,7 @@ class BoardTest {
         });
     }
 
-    // ValidatePosition tests
+    // ==== ValidatePosition tests ====
 
     // Both valid values
     @Test
@@ -259,27 +286,7 @@ class BoardTest {
         });
     }
 
-    @Test
-    public void getEmptyPositionTest() {
-        // Arrange
-        int size = 2;
-        Board boardToTest = new Board(size);
-
-        // Act
-        Set<Position> emptyPositions = new HashSet<>();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                Cell cellToTest = boardToTest.getCell(i, j);
-                if (cellToTest.isEmpty()) {
-                    Position cellPosition = new Position(i, j);
-                    emptyPositions.add(cellPosition);
-                }
-            }
-        }
-
-        // Assert
-        assertEquals(boardToTest.getEmptyPositions(), emptyPositions);
-    }
+    // ==== States of the board tests ====
 
     @Test
     public void hasEmptyCellsTest() {
@@ -364,6 +371,8 @@ class BoardTest {
         // Assert
         assertTrue(isFull);
     }
+
+    // ==== Movement tests ====
 
     @Test
     public void moveUpTest() {
@@ -645,6 +654,9 @@ class BoardTest {
         assertEquals(previousBoard, boardToTest);
     }
 
+    // ==== Equals tests ====
+
+    // Equal to some other board
     @Test
     public void equalsTest() {
         // Arrange
@@ -663,6 +675,62 @@ class BoardTest {
         assertTrue(boardVsB1);
     }
 
+    // Equal to itself
+    @Test
+    public void equalsToItselfTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+
+        // Act
+        boolean equalsResult = boardToTest.equals(boardToTest);
+
+        // Assert
+        assertTrue(equalsResult);
+    }
+
+    // Not equal with null
+    @Test
+    public void equalToNullTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+
+        // Act
+        boolean equalsResult = boardToTest.equals(null);
+
+        // Assert
+        assertFalse(equalsResult);
+    }
+
+    // Not equal because of the class
+    @Test
+    public void equalToAnotherClassTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+        Cell[] board = new Cell[] { new Cell(2), new Cell(2), new Cell(2), new Cell(2) };
+
+        // Act
+        boolean equalsResult = boardToTest.equals(board);
+
+        // Assert
+        assertFalse(equalsResult);
+    }
+
+    // Not equal because of the size
     @Test
     public void notSizeEqualsTest() {
         // Arrange
@@ -682,6 +750,7 @@ class BoardTest {
         assertFalse(boardVsB2);
     }
 
+    // Not equal because of the value of the cells
     @Test
     public void notElementsEqualsTest() {
         // Arrange
@@ -703,6 +772,8 @@ class BoardTest {
         // Assert
         assertFalse(boardVsB3);
     }
+
+    // ==== To String test ====
 
     @Test
     public void toStringBoardEmptyTest() {
