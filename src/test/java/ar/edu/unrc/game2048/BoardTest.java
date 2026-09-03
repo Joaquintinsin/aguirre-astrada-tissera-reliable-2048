@@ -68,6 +68,26 @@ class BoardTest {
     }
 
     @Test
+    public void illegalSizeWithNonDeterministicStrategyConstructorTest() {
+        // Arrange
+        int inputSize = -1;
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            Board board = new Board(inputSize, new NonDeterministicPlacement());
+        });
+    }
+
+    @Test
+    public void zeroSizedWithNonDeterministicStrategyConstructorTest() {
+        // Arrange
+        int inputSize = 0;
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            Board board = new Board(inputSize, new NonDeterministicPlacement());
+        });
+    }
+
+    @Test
     public void copyConstructorTest() {
         // Arrange
         int inputSize = 6;
@@ -606,15 +626,15 @@ class BoardTest {
         assertFalse(boardVsB3);
     }
 
-    @Test 
-    public void toStringBoardEmptyTest(){
+    @Test
+    public void toStringBoardEmptyTest() {
         // Arrange
         Board board = new Board(4);
         // Act
         String result = board.toString();
         // Assert
-        assertNotNull(result, "Score: 0\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n");
+        assertNotNull(result,
+                "Score: 0\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n");
     }
-
 
 }

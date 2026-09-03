@@ -2,6 +2,7 @@ package ar.edu.unrc.game2048;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -17,15 +18,35 @@ public class DeterministicBoardTest {
         assertEquals(board.getStrategy().getClass(), new DeterministicPlacement().getClass());
     }
 
+    @Test
+    public void illegalSizeConstructorTest() {
+        // Arrange
+        int inputSize = -1;
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            Board board = new Board(inputSize, new DeterministicPlacement());
+        });
+    }
+
+    @Test
+    public void zeroSizedConstructorTest() {
+        // Arrange
+        int inputSize = 0;
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            Board board = new Board(inputSize, new DeterministicPlacement());
+        });
+    }
+
     // ==== Movement tests ====
     @Test
     public void moveUpWithDeterministicPlacementTest() {
         // Arrange
         int size = 2;
         /*
-            2 0
-            2 2
-        */
+         * 2 0
+         * 2 2
+         */
         Board board = new Board(size, new DeterministicPlacement());
         board.setCell(0, 0, new Cell(2));
         board.setCell(0, 1, Cell.EMPTY);
@@ -38,10 +59,10 @@ public class DeterministicBoardTest {
         // Assert
         assertTrue(moved);
         /*
-            4 2     (0,0)(0,1)
-                ==?
-            2 0     (1,0)(1,1)
-        */
+         * 4 2 (0,0)(0,1)
+         * ==?
+         * 2 0 (1,0)(1,1)
+         */
         assertEquals(new Cell(4), board.getCell(0, 0));
         assertEquals(new Cell(2), board.getCell(0, 1));
         assertEquals(new Cell(2), board.getCell(1, 0));
@@ -72,9 +93,9 @@ public class DeterministicBoardTest {
         // Arrange
         int size = 2;
         /*
-            2 0
-            2 2
-        */
+         * 2 0
+         * 2 2
+         */
         Board board = new Board(size, new DeterministicPlacement());
         board.setCell(0, 0, new Cell(2));
         board.setCell(0, 1, Cell.EMPTY);
@@ -87,10 +108,10 @@ public class DeterministicBoardTest {
         // Assert
         assertTrue(moved);
         /*
-            2 0     (0,0)(0,1)
-                ==?
-            4 2     (1,0)(1,1)
-        */
+         * 2 0 (0,0)(0,1)
+         * ==?
+         * 4 2 (1,0)(1,1)
+         */
         assertEquals(new Cell(2), board.getCell(0, 0));
         assertEquals(Cell.EMPTY, board.getCell(0, 1));
         assertEquals(new Cell(4), board.getCell(1, 0));
@@ -121,9 +142,9 @@ public class DeterministicBoardTest {
         // Arrange
         int size = 2;
         /*
-            2 0
-            2 2
-        */
+         * 2 0
+         * 2 2
+         */
         Board board = new Board(size, new DeterministicPlacement());
         board.setCell(0, 0, new Cell(2));
         board.setCell(0, 1, Cell.EMPTY);
@@ -136,10 +157,10 @@ public class DeterministicBoardTest {
         // Assert
         assertTrue(moved);
         /*
-            2 2     (0,0)(0,1)
-                ==?
-            4 0     (1,0)(1,1)
-        */
+         * 2 2 (0,0)(0,1)
+         * ==?
+         * 4 0 (1,0)(1,1)
+         */
         assertEquals(new Cell(2), board.getCell(0, 0));
         assertEquals(new Cell(2), board.getCell(0, 1));
         assertEquals(new Cell(4), board.getCell(1, 0));
@@ -170,9 +191,9 @@ public class DeterministicBoardTest {
         // Arrange
         int size = 2;
         /*
-            2 0
-            2 2
-        */
+         * 2 0
+         * 2 2
+         */
         Board board = new Board(size, new DeterministicPlacement());
         board.setCell(0, 0, new Cell(2));
         board.setCell(0, 1, Cell.EMPTY);
@@ -185,10 +206,10 @@ public class DeterministicBoardTest {
         // Assert
         assertTrue(moved);
         /*
-            2 2     (0,0)(0,1)
-                ==?
-            0 4     (1,0)(1,1)
-        */
+         * 2 2 (0,0)(0,1)
+         * ==?
+         * 0 4 (1,0)(1,1)
+         */
         assertEquals(new Cell(2), board.getCell(0, 0));
         assertEquals(new Cell(2), board.getCell(0, 1));
         assertEquals(Cell.EMPTY, board.getCell(1, 0));
