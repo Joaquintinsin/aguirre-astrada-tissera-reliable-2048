@@ -579,4 +579,15 @@ class BoardTest {
         assertFalse(boardVsB3);
     }
 
+    @Test 
+    public void toStringBoardEmptyTest(){
+        // Arrange
+        Board board = new Board(4);
+        // Act
+        String result = board.toString();
+        // Assert
+        assertNotNull(result, "Score: 0\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n");
+    }
+
+
 }

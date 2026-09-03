@@ -518,26 +518,26 @@ public class Board {
      */
     @Override
     public String toString() {
-<span class="nc" id="L521">        StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L522">        sb.append(&quot;Score: &quot;).append(score).append(&quot;\n&quot;);</span>
-<span class="nc bnc" id="L523" title="All 2 branches missed.">        for (int r = 0; r &lt; size; r++) {</span>
-<span class="nc" id="L524">            sb.append(&quot;+&quot;);</span>
-<span class="nc bnc" id="L525" title="All 2 branches missed.">            for (int c = 0; c &lt; size; c++) {</span>
-<span class="nc" id="L526">                sb.append(&quot;-----+&quot;);</span>
+<span class="fc" id="L521">        StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L522">        sb.append(&quot;Score: &quot;).append(score).append(&quot;\n&quot;);</span>
+<span class="fc bfc" id="L523" title="All 2 branches covered.">        for (int r = 0; r &lt; size; r++) {</span>
+<span class="fc" id="L524">            sb.append(&quot;+&quot;);</span>
+<span class="fc bfc" id="L525" title="All 2 branches covered.">            for (int c = 0; c &lt; size; c++) {</span>
+<span class="fc" id="L526">                sb.append(&quot;-----+&quot;);</span>
             }
-<span class="nc" id="L528">            sb.append(&quot;\n|&quot;);</span>
-<span class="nc bnc" id="L529" title="All 2 branches missed.">            for (int c = 0; c &lt; size; c++) {</span>
-<span class="nc bnc" id="L530" title="All 2 branches missed.">                String val = grid[r][c].isEmpty() ? &quot;     &quot; : String.format(&quot;%5d&quot;, grid[r][c].getValue());</span>
-<span class="nc" id="L531">                sb.append(val).append(&quot;|&quot;);</span>
+<span class="fc" id="L528">            sb.append(&quot;\n|&quot;);</span>
+<span class="fc bfc" id="L529" title="All 2 branches covered.">            for (int c = 0; c &lt; size; c++) {</span>
+<span class="fc bfc" id="L530" title="All 2 branches covered.">                String val = grid[r][c].isEmpty() ? &quot;     &quot; : String.format(&quot;%5d&quot;, grid[r][c].getValue());</span>
+<span class="fc" id="L531">                sb.append(val).append(&quot;|&quot;);</span>
             }
-<span class="nc" id="L533">            sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L533">            sb.append(&quot;\n&quot;);</span>
         }
-<span class="nc" id="L535">        sb.append(&quot;+&quot;);</span>
-<span class="nc bnc" id="L536" title="All 2 branches missed.">        for (int c = 0; c &lt; size; c++) {</span>
-<span class="nc" id="L537">            sb.append(&quot;-----+&quot;);</span>
+<span class="fc" id="L535">        sb.append(&quot;+&quot;);</span>
+<span class="fc bfc" id="L536" title="All 2 branches covered.">        for (int c = 0; c &lt; size; c++) {</span>
+<span class="fc" id="L537">            sb.append(&quot;-----+&quot;);</span>
         }
-<span class="nc" id="L539">        sb.append(&quot;\n&quot;);</span>
-<span class="nc" id="L540">        return sb.toString();</span>
+<span class="fc" id="L539">        sb.append(&quot;\n&quot;);</span>
+<span class="fc" id="L540">        return sb.toString();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
