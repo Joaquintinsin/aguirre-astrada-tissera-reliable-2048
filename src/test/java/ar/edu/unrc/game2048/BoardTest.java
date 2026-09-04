@@ -5,18 +5,28 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 class BoardTest {
+    // ==== Constructor tests ====
     @Test
     public void defaultConstructorTest() {
         // Arrange - Act
         Board board = new Board();
         // Assert
         assertNotNull(board);
+    }
+
+    @Test
+    public void nonDeterministicClassWhenUsingDefaultConstructorTest() {
+        // Arrange & Act
+        Board board = new Board();
+        // Assert
+        assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
     }
 
     @Test
@@ -27,6 +37,25 @@ class BoardTest {
         // Assert
         assertEquals(board.getSize(), inputSize);
 
+    }
+
+    @Test
+    public void nonDeterministicClassWhenUsingsizeParameterizedConstructorTest() {
+        // Arrange & Act
+        int inputSize = 6;
+        Board board = new Board(inputSize);
+        // Assert
+        assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
+    }
+
+    @Test
+    public void strategyNullConstructorTest() {
+        // Arrange & Act
+        int inputSize = 6;
+        PlacementStrategy strat = null;
+        Board board = new Board(inputSize, strat);
+        // Assert
+        assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
     }
 
     @Test
@@ -41,6 +70,26 @@ class BoardTest {
     }
 
     @Test
+    public void illegalSizeWithNonDeterministicStrategyConstructorTest() {
+        // Arrange
+        int inputSize = -1;
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            Board board = new Board(inputSize, new NonDeterministicPlacement());
+        });
+    }
+
+    @Test
+    public void zeroSizedWithNonDeterministicStrategyConstructorTest() {
+        // Arrange
+        int inputSize = 0;
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            Board board = new Board(inputSize, new NonDeterministicPlacement());
+        });
+    }
+
+    @Test
     public void copyConstructorTest() {
         // Arrange
         int inputSize = 6;
@@ -52,6 +101,26 @@ class BoardTest {
     }
 
     @Test
+    public void nonDeterministicAddTileReturnsFalseWhenBoardIsFullTest() {
+        // Arrange
+        int size = 2;
+        NonDeterministicPlacement strat = new NonDeterministicPlacement();
+        Board board = new Board(size, strat);
+        board.setCell(0, 0, new Cell(2));
+        board.setCell(0, 1, new Cell(4));
+        board.setCell(1, 0, new Cell(8));
+        board.setCell(1, 1, new Cell(16));
+        Board previousBoard = new Board(board);
+
+        // Act
+        boolean added = strat.addTile(board);
+
+        // Assert
+        assertFalse(added);
+        assertEquals(previousBoard, board);
+    }
+
+    @Test
     public void nonDeterministicStrategyConstructorTest() {
         // Arrange & Act
         int inputSize = 6;
@@ -60,6 +129,8 @@ class BoardTest {
         // Assert
         assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
     }
+
+    // ==== Getter tests ====
 
     @Test
     public void getSizeTest() {
@@ -103,6 +174,30 @@ class BoardTest {
     }
 
     @Test
+    public void getEmptyPositionTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+
+        // Act
+        Set<Position> emptyPositions = new HashSet<>();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Cell cellToTest = boardToTest.getCell(i, j);
+                if (cellToTest.isEmpty()) {
+                    Position cellPosition = new Position(i, j);
+                    emptyPositions.add(cellPosition);
+                }
+            }
+        }
+
+        // Assert
+        assertEquals(boardToTest.getEmptyPositions(), emptyPositions);
+    }
+
+    // ==== Setter tests ====
+
+    @Test
     public void setCellValidPositionTest() {
         // Arrange
         Board board = new Board(4);
@@ -134,27 +229,85 @@ class BoardTest {
         });
     }
 
+    // ==== ValidatePosition tests ====
+
+    // Both valid values
     @Test
-    public void getEmptyPositionTest() {
+    public void validatePositionWithValidValuesTest() {
         // Arrange
-        int size = 2;
-        Board boardToTest = new Board(size);
+        int size = 5;
+        Board board = new Board(size);
+        int row = 0;
+        int col = 0;
 
         // Act
-        Set<Position> emptyPositions = new HashSet<>();
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                Cell cellToTest = boardToTest.getCell(i, j);
-                if (cellToTest.isEmpty()) {
-                    Position cellPosition = new Position(i, j);
-                    emptyPositions.add(cellPosition);
-                }
-            }
-        }
+        board.validatePosition(row, col);
 
         // Assert
-        assertEquals(boardToTest.getEmptyPositions(), emptyPositions);
+        assertTrue(true);
     }
+
+    // Invalid: Negative row value
+    @Test
+    public void validatePositionWithNegativeRowTest() {
+        // Arrange
+        int size = 5;
+        Board board = new Board(size);
+        int row = -1;
+        int col = 0;
+
+        // Act - Assert
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            board.validatePosition(row, col);
+        });
+    }
+
+    // Invalid: Row greater or equal than size
+    @Test
+    public void validatePositionWithGreaterRowThanSizeTest() {
+        // Arrange
+        int size = 5;
+        Board board = new Board(size);
+        int row = size;
+        int col = 0;
+
+        // Act - Assert
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            board.validatePosition(row, col);
+        });
+    }
+
+    // Invalid: Negative column value
+    @Test
+    public void validatePositionWithNegativeColumnTest() {
+        // Arrange
+        int size = 5;
+        Board board = new Board(size);
+        int row = 0;
+        int col = -1;
+
+        // Act - Assert
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            board.validatePosition(row, col);
+        });
+    }
+
+    // Invalid: Column greater or equal than size
+    @Test
+    public void validatePositionWithGreaterColumnThanSizeTest() {
+        // Arrange
+        int size = 5;
+        Board board = new Board(size);
+        int row = 0;
+        int col = size;
+
+        // Act - Assert
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            board.validatePosition(row, col);
+        });
+    }
+
+    // ==== States of the board tests ====
 
     @Test
     public void hasEmptyCellsTest() {
@@ -239,6 +392,8 @@ class BoardTest {
         // Assert
         assertTrue(isFull);
     }
+
+    // ==== Movement tests ====
 
     @Test
     public void moveUpTest() {
@@ -520,6 +675,9 @@ class BoardTest {
         assertEquals(previousBoard, boardToTest);
     }
 
+    // ==== Equals tests ====
+
+    // Equal to some other board
     @Test
     public void equalsTest() {
         // Arrange
@@ -538,6 +696,62 @@ class BoardTest {
         assertTrue(boardVsB1);
     }
 
+    // Equal to itself
+    @Test
+    public void equalsToItselfTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+
+        // Act
+        boolean equalsResult = boardToTest.equals(boardToTest);
+
+        // Assert
+        assertTrue(equalsResult);
+    }
+
+    // Not equal with null
+    @Test
+    public void equalToNullTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+
+        // Act
+        boolean equalsResult = boardToTest.equals(null);
+
+        // Assert
+        assertFalse(equalsResult);
+    }
+
+    // Not equal because of the class
+    @Test
+    public void equalToAnotherClassTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        boardToTest.setCell(0, 0, new Cell(2));
+        boardToTest.setCell(1, 0, new Cell(2));
+        boardToTest.setCell(0, 1, new Cell(2));
+        boardToTest.setCell(1, 1, new Cell(2));
+        Cell[] board = new Cell[] { new Cell(2), new Cell(2), new Cell(2), new Cell(2) };
+
+        // Act
+        boolean equalsResult = boardToTest.equals(board);
+
+        // Assert
+        assertFalse(equalsResult);
+    }
+
+    // Not equal because of the size
     @Test
     public void notSizeEqualsTest() {
         // Arrange
@@ -557,6 +771,7 @@ class BoardTest {
         assertFalse(boardVsB2);
     }
 
+    // Not equal because of the value of the cells
     @Test
     public void notElementsEqualsTest() {
         // Arrange
@@ -579,14 +794,17 @@ class BoardTest {
         assertFalse(boardVsB3);
     }
 
-    @Test 
-    public void toStringBoardEmptyTest(){
+    // ==== To String test ====
+
+    @Test
+    public void toStringBoardEmptyTest() {
         // Arrange
         Board board = new Board(4);
         // Act
         String result = board.toString();
         // Assert
-        assertNotNull(result, "Score: 0\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n");
+        assertNotNull(result,
+                "Score: 0\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n");
     }
 
     @Test 
@@ -654,5 +872,26 @@ class BoardTest {
     }
 
     
+    // ==== Hash Code test ====
+    @Test
+    public void hashCodeTest() {
+        // Arrange
+        Board boardOne = new Board(4);
+        Board boardTwo = new Board(boardOne);
+        // Act
+        int hashCodeOne = boardOne.hashCode();
+        int hashCodeTwo = boardTwo.hashCode();
+        // Assert
+        assertEquals(hashCodeOne, hashCodeTwo);
+    }
 
+    @Test
+    public void hashCodeShouldNotReturnZeroTest() {
+        // Arrange
+        Board board = new Board(4, new DeterministicPlacement());
+        // Act
+        int result = board.hashCode();
+        // Assert
+        assertNotEquals(0, result);
+    }
 }

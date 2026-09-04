@@ -187,7 +187,7 @@ public class Board {
      * @param col the column index
      * @throws IndexOutOfBoundsException if the position is out of bounds
      */
-    private void validatePosition(int row, int col) {
+    protected void validatePosition(int row, int col) {
         if (row < 0 || row >= size || col < 0 || col >= size) {
             throw new IndexOutOfBoundsException(
                     String.format("Position (%d, %d) is out of bounds for board size %d",

@@ -13,7 +13,7 @@
 <span class="fc" id="L13">        int size = board.getSize();</span>
 
         // Search through the board
-<span class="pc bpc" id="L16" title="1 of 2 branches missed.">        for (int r = 0; r &lt; size; r++) {</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        for (int r = 0; r &lt; size; r++) {</span>
 <span class="fc bfc" id="L17" title="All 2 branches covered.">            for (int c = 0; c &lt; size; c++) {</span>
                 // As soon encounter one empty cell, put a new cell with value 2
 <span class="fc bfc" id="L19" title="All 2 branches covered.">                if (board.getCell(r, c).isEmpty()) {</span>
@@ -24,7 +24,7 @@
         }
 
         // Returns false if there is no empty cells left
-<span class="nc" id="L27">        return false;</span>
+<span class="fc" id="L27">        return false;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

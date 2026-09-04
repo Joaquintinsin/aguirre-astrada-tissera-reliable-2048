@@ -64,7 +64,7 @@ public final class Cell {
      * @return true if the cells can merge, false otherwise
      */
     public boolean canMergeWith(Cell other) {
-<span class="pc bpc" id="L67" title="1 of 4 branches missed.">        if (this.isEmpty() &amp;&amp; other.isEmpty()) {</span>
+<span class="fc bfc" id="L67" title="All 4 branches covered.">        if (this.isEmpty() &amp;&amp; other.isEmpty()) {</span>
 <span class="fc" id="L68">            return false;</span>
         }
 <span class="fc bfc" id="L70" title="All 2 branches covered.">        return this.value == other.value;</span>
@@ -97,8 +97,8 @@ public final class Cell {
     public boolean equals(Object o) {
 <span class="fc bfc" id="L98" title="All 2 branches covered.">        if (this == o)</span>
 <span class="fc" id="L99">            return true;</span>
-<span class="pc bpc" id="L100" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass())</span>
-<span class="nc" id="L101">            return false;</span>
+<span class="fc bfc" id="L100" title="All 4 branches covered.">        if (o == null || getClass() != o.getClass())</span>
+<span class="fc" id="L101">            return false;</span>
 <span class="fc" id="L102">        Cell cell = (Cell) o;</span>
 <span class="fc bfc" id="L103" title="All 2 branches covered.">        return value == cell.value;</span>
     }
