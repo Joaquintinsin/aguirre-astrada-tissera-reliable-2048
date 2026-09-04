@@ -16,12 +16,12 @@ public class Position {
 
     @Override
     public boolean equals(Object o) {
-<span class="pc bpc" id="L19" title="1 of 2 branches missed.">        if (this == o)</span>
-<span class="nc" id="L20">            return true;</span>
-<span class="pc bpc" id="L21" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass())</span>
-<span class="nc" id="L22">            return false;</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        if (this == o)</span>
+<span class="fc" id="L20">            return true;</span>
+<span class="fc bfc" id="L21" title="All 4 branches covered.">        if (o == null || getClass() != o.getClass())</span>
+<span class="fc" id="L22">            return false;</span>
 <span class="fc" id="L23">        Position position = (Position) o;</span>
-<span class="pc bpc" id="L24" title="2 of 4 branches missed.">        return row == position.row &amp;&amp; col == position.col;</span>
+<span class="fc bfc" id="L24" title="All 4 branches covered.">        return row == position.row &amp;&amp; col == position.col;</span>
     }
 
     @Override

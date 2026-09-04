@@ -589,5 +589,70 @@ class BoardTest {
         assertNotNull(result, "Score: 0\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n");
     }
 
+    @Test 
+    public void equalsPositionSelfTest(){
+        // Arrange
+        Position position = new Position(1, 1);
+        // Act
+        boolean result = position.equals(position);
+        // Assert
+        assertTrue(result);
+    }
+
+    @Test
+    public void equalsPositionDifferentClassTest(){
+        // Arrange
+        Position position = new Position(1, 1);
+        Object obj = new Object();
+        // Act
+        boolean result = position.equals(obj);
+        // Assert
+        assertFalse(result);
+    }
+
+    public void equalsPositionNullTest(){
+        // Arrange
+        Position position = new Position(1, 1);
+        Position position2 = null;
+        // Act
+        boolean result = position.equals(position2);
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test 
+    public void equalsPositionNullObjectTest(){
+        // Arrange
+        Position position = new Position(1, 1);
+        Object obj = null;
+        // Act
+        boolean result = position.equals(obj);
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test
+    public void equalsPositionSelfRowTest(){
+        // Arrange
+        Position position = new Position(1, 1);
+        Position position2 = new Position(1, 2);
+        // Act
+        boolean result = position.equals(position2);
+        // Assert
+        assertFalse(result);
+    }
+
+    @Test 
+    public void equalsPositionSelfColumnTest(){
+        // Arrange
+        Position position = new Position(1, 1);
+        Position position2 = new Position(2, 1);
+        // Act
+        boolean result = position.equals(position2);
+        // Assert
+        assertFalse(result);
+    }
+
+    
 
 }
