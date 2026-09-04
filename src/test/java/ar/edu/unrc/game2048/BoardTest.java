@@ -894,4 +894,15 @@ class BoardTest {
         // Assert
         assertNotEquals(0, result);
     }
+
+    @Test 
+    public void toStringPositionTest() {
+        // Arrange
+        Position position = new Position(1, 2);
+        // Act
+        String result = position.toString();
+        // Assert
+        assertEquals("(1, 2)", result);
+
+    }
 }
