@@ -32,8 +32,8 @@ public final class Cell {
      *                                  two (except 0)
      */
 <span class="fc" id="L34">    public Cell(int value) {</span>
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (value &lt; 0) {</span>
-<span class="nc" id="L36">            throw new IllegalArgumentException(&quot;Cell value cannot be negative: &quot; + value);</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        if (value &lt; 0) {</span>
+<span class="fc" id="L36">            throw new IllegalArgumentException(&quot;Cell value cannot be negative: &quot; + value);</span>
         }
 <span class="fc" id="L38">        this.value = value;</span>
 <span class="fc" id="L39">    }</span>

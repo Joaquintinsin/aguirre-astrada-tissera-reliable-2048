@@ -206,4 +206,10 @@ class CellTest {
         assertEquals(str, ".");
     }
 
+    @Test 
+    void testCreateCellWithNegativeValue() {
+        // act - assert
+        assertThrows(IllegalArgumentException.class, () -> new Cell(-2));
+    }
+
 }
