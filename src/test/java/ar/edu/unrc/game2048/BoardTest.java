@@ -252,6 +252,17 @@ class BoardTest {
         });
     }
 
+    @Test
+    public void setCellOutOfBoundsUsesBoardValidationMessageTest() {
+        Board board = new Board(4);
+
+        IndexOutOfBoundsException exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+            board.setCell(4, 4, Cell.EMPTY);
+        });
+
+        assertEquals("Position (4, 4) is out of bounds for board size 4", exception.getMessage());
+    }
+
     // ==== ValidatePosition tests ====
 
     // Both valid values
