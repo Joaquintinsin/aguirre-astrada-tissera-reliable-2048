@@ -1,6 +1,8 @@
 package ar.edu.unrc.game2048;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -391,6 +393,24 @@ class BoardTest {
 
         // Assert
         assertTrue(isFull);
+    }
+
+    // ==== PadWithEmptyCells tests ====
+
+    @Test
+    public void padWithEmptyCellsWhenListSizeEqualsBoardSizeDoesntAddCellTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        List<Cell> merged = new ArrayList<>();
+        merged.add(Cell.EMPTY);
+        merged.add(Cell.EMPTY);
+
+        // Act
+        boardToTest.padWithEmptyCells(merged);
+
+        // Assert
+        assertEquals(size, merged.size());
     }
 
     // ==== Movement tests ====
