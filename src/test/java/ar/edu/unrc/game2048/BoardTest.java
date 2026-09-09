@@ -413,6 +413,24 @@ class BoardTest {
         assertEquals(size, merged.size());
     }
 
+    // ==== MergeAdjacentEqualsCells tests ====
+
+    @Test
+    public void mergeAdjacentEqualsCellsAddsMergedValueToScoreTest() {
+        // Arrange
+        int size = 2;
+        Board boardToTest = new Board(size);
+        List<Cell> cellList = new ArrayList<>();
+        cellList.add(new Cell(2));
+        cellList.add(new Cell(2));
+
+        // Act
+        boardToTest.mergeAdjacentEqualsCells(cellList);
+
+        // Assert
+        assertEquals(4, boardToTest.getScore());
+    }
+
     // ==== Movement tests ====
 
     @Test
