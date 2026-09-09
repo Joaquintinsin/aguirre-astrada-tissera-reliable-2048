@@ -72,6 +72,16 @@ class BoardTest {
     }
 
     @Test
+    public void zeroSizedConstructorTest() {
+        // Arrange
+        int inputSize = 0;
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            Board board = new Board(inputSize);
+        });
+    }
+
+    @Test
     public void illegalSizeWithNonDeterministicStrategyConstructorTest() {
         // Arrange
         int inputSize = -1;
