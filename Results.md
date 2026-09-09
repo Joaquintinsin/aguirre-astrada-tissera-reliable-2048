@@ -18,14 +18,14 @@ PITest report:
 Total:
 
 - Line coverage: 84%
-- Mutation Coverage: 82%
-- Test Strength: 90%
+- Mutation Coverage: 83%
+- Test Strength: 91%
 
 Board:
 
 - Line coverage: 100%
-- Mutation Coverage: 92%
-- Test Strength: 92%
+- Mutation Coverage: 93%
+- Test Strength: 93%
 
 Cell:
 
