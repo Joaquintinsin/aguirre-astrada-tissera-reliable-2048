@@ -18,14 +18,14 @@ PITest report:
 Total:
 
 - Line coverage: 84%
-- Mutation Coverage: 83%
-- Test Strength: 91%
+- Mutation Coverage: 88%
+- Test Strength: 97%
 
 Board:
 
 - Line coverage: 100%
-- Mutation Coverage: 93%
-- Test Strength: 93%
+- Mutation Coverage: 100%
+- Test Strength: 100%
 
 Cell:
 
@@ -36,8 +36,8 @@ Cell:
 DeterministicPlacement:
 
 - Line coverage: 100%
-- Mutation Coverage: 88%
-- Test Strength: 88%
+- Mutation Coverage: 90%
+- Test Strength: 90%
 
 Main:
 
@@ -54,8 +54,8 @@ NonDeterministicPlacement:
 Position:
 
 - Line coverage: 100%
-- Mutation Coverage: 90%
-- Test Strength: 90%
+- Mutation Coverage: 91%
+- Test Strength: 91%
 
 ## Resumen de Mutantes que sobrevivieron segun la corrida de PITest
 
