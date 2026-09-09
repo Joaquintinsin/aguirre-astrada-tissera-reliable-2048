@@ -186,6 +186,17 @@ class BoardTest {
     }
 
     @Test
+    public void getCellOutOfBoundsUsesBoardValidationMessageTest() {
+        Board board = new Board(4);
+
+        IndexOutOfBoundsException exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+            board.getCell(4, 0);
+        });
+
+        assertEquals("Position (4, 0) is out of bounds for board size 4", exception.getMessage());
+    }
+
+    @Test
     public void getEmptyPositionTest() {
         // Arrange
         int size = 2;
