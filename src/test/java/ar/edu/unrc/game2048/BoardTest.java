@@ -133,6 +133,20 @@ class BoardTest {
     }
 
     @Test
+    public void addTileWhenBoardHasEmptyCellTest() {
+        NonDeterministicPlacement strat = new NonDeterministicPlacement();
+        Board board = new Board(2, strat);
+        board.setCell(0, 0, new Cell(8));
+        board.setCell(0, 1, new Cell(16));
+        board.setCell(1, 0, new Cell(32));
+        board.setCell(1, 1, Cell.EMPTY);
+
+        boolean added = strat.addTile(board);
+
+        assertTrue(added);
+    }
+
+    @Test
     public void nonDeterministicStrategyConstructorTest() {
         // Arrange & Act
         int inputSize = 6;
