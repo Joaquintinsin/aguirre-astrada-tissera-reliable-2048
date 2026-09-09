@@ -256,4 +256,21 @@ public class DeterministicBoardTest {
         assertEquals(previousBoard, board);
     }
 
+    @Test
+    public void noEmptyToStringBoard() {
+        // Arrange
+        int size = 2;
+        Board board = new Board(size, new DeterministicPlacement());
+        board.setCell(0, 0, new Cell(0));
+        board.setCell(0, 1, new Cell(2));
+        board.setCell(1, 0, new Cell(0));
+        board.setCell(1, 1, new Cell(4));
+        
+        //Act
+        String boardString = board.toString();
+
+        // Assert
+        assertEquals(boardString, "Score: 0\n+-----+-----+\n|     |    2|\n+-----+-----+\n|     |    4|\n+-----+-----+\n");
+    }
+
 }
