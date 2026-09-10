@@ -11,8 +11,6 @@ Jacoco report:
 -DeterministicPlacement 94%
 -NonDeterministicPlacement 95%
 
-
-
 PitTest report:
 
 Total:
@@ -53,6 +51,7 @@ Position:
 ### Resumen de Mutantes que sobrevivieron segun la corrida de PITest
 
 1. Constructor de Board con parametro size
+
 ```java
 // Metodo
 public Board(int size) {
@@ -63,6 +62,7 @@ if (size < 0) {
 ```
 
 2. Constructor de Board con parametro size y parametro PlacementStrategy
+
 ```java
 // Metodo
 public Board(int size, PlacementStrategy strat) {
@@ -73,6 +73,7 @@ if (size < 0) {
 ```
 
 3. Getter de score en clase Board
+
 ```java
 // Metodo
 public int getScore() {
@@ -83,6 +84,7 @@ return 0;
 ```
 
 4. Getter de cell en clase Board
+
 ```java
 // Metodo
 public Cell getCell(int row, int col) {
@@ -93,6 +95,7 @@ validatePosition(row, col);
 ```
 
 5. Setter de cell en clase Board
+
 ```java
 // Metodo
 public void setCell(int row, int col, Cell cell) {
@@ -125,6 +128,7 @@ if (row < 0 || row >= size || col < 0 || col > size) {
 ```
 
 7. Mergeo de celdas iguales adjacentes
+
 ```java
 // Metodo
 protected List<Cell> mergeAdjacentEqualsCells(List<Cell> cellList) {
@@ -135,6 +139,7 @@ score -= mergedCell.getValue();
 ```
 
 8. Relleno con celdas vacias
+
 ```java
 // Metodo
 protected void padWithEmptyCells(List<Cell> merged) {
@@ -186,7 +191,6 @@ return Objects.hash(size, Arrays.deepHashCode(grid), score);
 // Mutante
 return 0;
 ```
-
 
 12. toString de clase Board
 
@@ -322,12 +326,11 @@ Position:
 - Mutation Coverage: 90%
 - Test Strength: 90%
 
---- 
+---
 
 ## Phase 3: Automated Test Generation with Randoop - JaCoCo report
 
-
-Generar los tests con Randoop 
+Generar los tests con Randoop
 
 ```
 java -cp "lib/randoop-all-4.3.4.jar:target/classes" randoop.main.Main gentests \
@@ -335,35 +338,56 @@ java -cp "lib/randoop-all-4.3.4.jar:target/classes" randoop.main.Main gentests \
   --testclass=ar.edu.unrc.game2048.Board \
   --testclass=ar.edu.unrc.game2048.Position \
   --testclass=ar.edu.unrc.game2048.DeterministicPlacement \
-  --testclass=ar.edu.unrc.game2048.NonDeterministicPlacement \
-  --time-limit=30 \
+  --omit-methods="\
+    ar.edu.unrc.game2048.Board\(\)|\
+    ar.edu.unrc.game2048.Board\(\s*int\s*\)$|\
+    ar.edu.unrc.game2048.Board\(\s*ar.edu.unrc.game2048.Board\s*\)$" \
+  --time-limit=10 \
   --junit-output-dir=src/test/java \
   --junit-package-name=randoopTests
 ```
 
-Correr solo esos tests y generar el reporte de cobertura JaCoCo ignorando los flaky test
+Esta forma de generar tests con Randoop evita utilizar metodos no deterministicos para la construccion de Board
+Como? Omitiendo los siguientes metodos:
 
-```
-mvn clean test -Dtest="RegressionTest,RegressionTest0" \
-  -DfailIfNoTests=false \
-  -Dmaven.test.failure.ignore=true \
-  jacoco:report
-```
+- `Board()` (argumento `ar.edu.unrc.game2048.Board\(\)|\`)
+- `Board(int size)` (argumento `ar.edu.unrc.game2048.Board\(\s*int\s*\)$|\`)
+- `Board(Board board)` (argumento `ar.edu.unrc.game2048.Board\(\s*ar.edu.unrc.game2048.Board\s*\)$" \`)
+
+JaCoCo Report:
 
 Board
-Line Coverage: 94 %		
-Branch Coverage: 86 %	
+Line Coverage: 100 %
+Branch Coverage: 97 %
 
-Cell	
-Line Coverage: 89 %		
-Branch Coverage: 90 %	
-
-DeterministicPlacement	
-Line Coverage: 100 %		
-Branch Coverage: 100 %	
-
-NonDeterministicPlacement	
-Line Coverage: 100 %		
+Cell
+Line Coverage: 100 %
 Branch Coverage: 100 %
 
+Position
+Line Coverage: 100 %
+Branch Coverage: 100 %
 
+DeterministicPlacement
+Line Coverage: 100 %
+Branch Coverage: 100 %
+
+NonDeterministicPlacement
+Line Coverage: 100 %
+Branch Coverage: 100 %
+
+PITest Report:
+
+| Number of Classes | %    | Line Coverage | %   | Mutation Coverage | %   | Test Strength |
+| :---------------- | :--- | :------------ | :-- | :---------------- | :-- | :------------ |
+| 5                 | 100% | 238/238       | 99% | 212/213           | 99% | 212/213       |
+
+Breakdown by Class
+
+| Name                           | %    | Line Coverage | %    | Mutation Coverage | %    | Test Strength |
+| :----------------------------- | :--- | :------------ | :--- | :---------------- | :--- | :------------ |
+| Board.java                     | 100% | 187/187       | 100% | 165/165           | 100% | 165/165       |
+| Cell.java                      | 100% | 22/22         | 100% | 23/23             | 100% | 23/23         |
+| DeterministicPlacement.java    | 100% | 8/8           | 100% | 8/8               | 100% | 8/8           |
+| NonDeterministicPlacement.java | 100% | 9/9           | 86%  | 6/7               | 86%  | 6/7           |
+| Position.java                  | 100% | 12/12         | 100% | 10/10             | 100% | 10/10         |
