@@ -2,14 +2,13 @@
 
 Jacoco report:
 
-- Cobertura total 79%
+- Cobertura total 100%
 
-- Main 0%
-- Position 82%
-- Board 86%
-- Cell 92%
-- DeterministicPlacement 94%
-- NonDeterministicPlacement 95%
+- Position 100%
+- Board 100%
+- Cell 100%
+- DeterministicPlacement 100%
+- NonDeterministicPlacement 100%
 
 ---
 
@@ -37,12 +36,6 @@ DeterministicPlacement:
 
 - Line coverage: 100%
 - Mutation Coverage: 100%
-- Test Strength: 100%
-
-Main:
-
-- Line coverage: 0%
-- Mutation Coverage: 0%
 - Test Strength: 100%
 
 NonDeterministicPlacement:
