@@ -412,3 +412,10 @@ org.junit.Assert.assertTrue("Representation invariant failed: Check rep invarian
 100 no es potencia de dos. El constructor de Cell solo valida value < 0 y lanza IllegalArgumentException, pero nunca valida que el valor sea 0 o una potencia de dos.
 Sin `repOK()` como contrato, Randoop hubiera aceptado `new Cell(100)` como una secuencia válida más (test de regresión), sin señalar la inconsistencia entre el constructor y el invariante documentado de la clase. 
  * Se corrige el constructor de la Clase Cell.
+
+
+## Phase 3 (cont.): repOK() Invariant for Board + Randoop
+
+Se agregó `@CheckRep` al método repOk()de Board, y se lo reforzó para chequear también el invariante de cada celda (`grid[r][c].repOK()`), no solo que sea no-nula:
+
+Se corrió Randoop de nuevo y no se encontraron violaciones del invariante de Board.

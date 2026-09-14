@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import randoop.CheckRep;
+
 /**
  * Represents the 2048 game board.
  * The board is a square grid of Cells, typically 4x4.
@@ -540,6 +542,7 @@ public class Board {
         return sb.toString();
     }
 
+    @CheckRep
     public boolean repOk() {
         if (size <= 0) {
             return false;
@@ -552,7 +555,7 @@ public class Board {
                 return false;
             }
             for (int c = 0; c < size; c++) {
-                if (grid[r][c] == null) {
+                if (grid[r][c] == null || !grid[r][c].repOK()) {
                     return false;
                 }
             }
