@@ -539,4 +539,27 @@ public class Board {
         sb.append("\n");
         return sb.toString();
     }
+
+    public boolean repOk() {
+        if (size <= 0) {
+            return false;
+        }
+        if (grid == null || grid.length != size) {
+            return false;
+        }
+        for (int r = 0; r < size; r++) {
+            if (grid[r] == null || grid[r].length != size) {
+                return false;
+            }
+            for (int c = 0; c < size; c++) {
+                if (grid[r][c] == null) {
+                    return false;
+                }
+            }
+        }
+        if(score < 0) {
+            return false;
+        }
+        return true;
+    }
 }
