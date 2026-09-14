@@ -391,3 +391,24 @@ Breakdown by Class
 | DeterministicPlacement.java    | 100% | 8/8           | 100% | 8/8               | 100% | 8/8           |
 | NonDeterministicPlacement.java | 100% | 9/9           | 86%  | 6/7               | 86%  | 6/7           |
 | Position.java                  | 100% | 12/12         | 100% | 10/10             | 100% | 10/10         |
+
+## Phase 3 (cont.): repOK() Invariant for Cell + Randoop
+
+Se implementó `repOK()` en `Cell` para chequear su invariante de representación (valor no negativo, y 0 o potencia de dos):
+
+
+Se anotó con @randoop.CheckRep. Randoop detecta el método público, de instancia, sin parámetros, anotado con @CheckRep y lo usa como contrato: lo evalúa sobre el objeto resultante después de cada llamada de cada secuencia generada, y si devuelve `false` genera un test error-revealing en vez de uno de regresión.
+
+### Bug encontrado
+
+Randoop generó `src/test/java/randoopTests/ErrorTest0.java` con un caso que viola el invariante documentado de Cell:
+
+```java
+ar.edu.unrc.game2048.Cell cell1 = new ar.edu.unrc.game2048.Cell((int) (short) 100);
+// Check representation invariant.
+org.junit.Assert.assertTrue("Representation invariant failed: Check rep invariant (method repOK) for cell1", cell1.repOK());
+```
+
+100 no es potencia de dos. El constructor de Cell solo valida value < 0 y lanza IllegalArgumentException, pero nunca valida que el valor sea 0 o una potencia de dos.
+Sin `repOK()` como contrato, Randoop hubiera aceptado `new Cell(100)` como una secuencia válida más (test de regresión), sin señalar la inconsistencia entre el constructor y el invariante documentado de la clase. 
+ * Se corrige el constructor de la Clase Cell.

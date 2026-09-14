@@ -163,19 +163,6 @@ public class RegressionTest0 {
             System.out.format("%n%s%n", "RegressionTest0.test13");
         ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board((int) ' ');
         ar.edu.unrc.game2048.Board board2 = new ar.edu.unrc.game2048.Board(board1);
-        ar.edu.unrc.game2048.Board board3 = new ar.edu.unrc.game2048.Board(board2);
-        boolean boolean4 = board2.isWinningBoard();
-        ar.edu.unrc.game2048.PlacementStrategy placementStrategy5 = board2.getStrategy();
-        org.junit.Assert.assertTrue("'" + boolean4 + "' != '" + false + "'", boolean4 == false);
-        org.junit.Assert.assertNotNull(placementStrategy5);
-    }
-
-    @Test
-    public void test14() throws Throwable {
-        if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test14");
-        ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board((int) ' ');
-        ar.edu.unrc.game2048.Board board2 = new ar.edu.unrc.game2048.Board(board1);
         boolean boolean3 = board1.moveUp();
         // The following exception was thrown during execution in test generation
         try {
@@ -188,9 +175,9 @@ public class RegressionTest0 {
     }
 
     @Test
-    public void test15() throws Throwable {
+    public void test14() throws Throwable {
         if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test15");
+            System.out.format("%n%s%n", "RegressionTest0.test14");
         ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board((int) ' ');
         int int2 = board1.getScore();
         java.util.Set<ar.edu.unrc.game2048.Position> positionSet3 = board1.getEmptyPositions();
@@ -199,9 +186,9 @@ public class RegressionTest0 {
     }
 
     @Test
-    public void test16() throws Throwable {
+    public void test15() throws Throwable {
         if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test16");
+            System.out.format("%n%s%n", "RegressionTest0.test15");
         ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board((int) ' ');
         ar.edu.unrc.game2048.Board board2 = new ar.edu.unrc.game2048.Board(board1);
         ar.edu.unrc.game2048.Board board3 = new ar.edu.unrc.game2048.Board(board2);
@@ -210,9 +197,9 @@ public class RegressionTest0 {
     }
 
     @Test
-    public void test17() throws Throwable {
+    public void test16() throws Throwable {
         if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test17");
+            System.out.format("%n%s%n", "RegressionTest0.test16");
         ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board((int) ' ');
         ar.edu.unrc.game2048.Board board2 = new ar.edu.unrc.game2048.Board(board1);
         boolean boolean3 = board1.moveDown();
@@ -220,16 +207,16 @@ public class RegressionTest0 {
     }
 
     @Test
-    public void test18() throws Throwable {
+    public void test17() throws Throwable {
         if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test18");
+            System.out.format("%n%s%n", "RegressionTest0.test17");
         ar.edu.unrc.game2048.Position position2 = new ar.edu.unrc.game2048.Position(10, (int) (short) -1);
     }
 
     @Test
-    public void test19() throws Throwable {
+    public void test18() throws Throwable {
         if (debug)
-            System.out.format("%n%s%n", "RegressionTest0.test19");
+            System.out.format("%n%s%n", "RegressionTest0.test18");
         ar.edu.unrc.game2048.DeterministicPlacement deterministicPlacement1 = new ar.edu.unrc.game2048.DeterministicPlacement();
         ar.edu.unrc.game2048.Board board2 = new ar.edu.unrc.game2048.Board((int) (short) 100, (ar.edu.unrc.game2048.PlacementStrategy) deterministicPlacement1);
         ar.edu.unrc.game2048.Board board4 = new ar.edu.unrc.game2048.Board((int) ' ');
@@ -241,6 +228,119 @@ public class RegressionTest0 {
         org.junit.Assert.assertTrue("'" + boolean7 + "' != '" + true + "'", boolean7 == true);
         org.junit.Assert.assertTrue("'" + boolean8 + "' != '" + true + "'", boolean8 == true);
         org.junit.Assert.assertNotNull(placementStrategy9);
+    }
+
+    @Test
+    public void test19() throws Throwable {
+        if (debug)
+            System.out.format("%n%s%n", "RegressionTest0.test19");
+        ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board((int) ' ');
+        ar.edu.unrc.game2048.Board board2 = new ar.edu.unrc.game2048.Board(board1);
+        boolean boolean3 = board1.moveUp();
+        ar.edu.unrc.game2048.Board board4 = new ar.edu.unrc.game2048.Board(board1);
+        org.junit.Assert.assertTrue("'" + boolean3 + "' != '" + true + "'", boolean3 == true);
+    }
+
+    @Test
+    public void test20() throws Throwable {
+        if (debug)
+            System.out.format("%n%s%n", "RegressionTest0.test20");
+        // The following exception was thrown during execution in test generation
+        try {
+            ar.edu.unrc.game2048.Cell cell1 = new ar.edu.unrc.game2048.Cell((int) (short) -1);
+            org.junit.Assert.fail("Expected exception of type java.lang.IllegalArgumentException; message: Cell value cannot be negative: -1");
+        } catch (java.lang.IllegalArgumentException e) {
+            // Expected exception.
+        }
+    }
+
+    @Test
+    public void test21() throws Throwable {
+        if (debug)
+            System.out.format("%n%s%n", "RegressionTest0.test21");
+        ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board((int) ' ');
+        int int2 = board1.getScore();
+        boolean boolean3 = board1.moveRight();
+        ar.edu.unrc.game2048.Cell cell6 = board1.getCell((int) (short) 10, 1);
+        ar.edu.unrc.game2048.Cell cell8 = new ar.edu.unrc.game2048.Cell((int) (byte) 1);
+        int int9 = cell8.getValue();
+        boolean boolean10 = cell6.canMergeWith(cell8);
+        ar.edu.unrc.game2048.Cell cell11 = null;
+        // The following exception was thrown during execution in test generation
+        try {
+            boolean boolean12 = cell6.canMergeWith(cell11);
+            org.junit.Assert.fail("Expected exception of type java.lang.NullPointerException; message: Cannot invoke \"ar.edu.unrc.game2048.Cell.isEmpty()\" because \"other\" is null");
+        } catch (java.lang.NullPointerException e) {
+            // Expected exception.
+        }
+        org.junit.Assert.assertTrue("'" + int2 + "' != '" + 0 + "'", int2 == 0);
+        org.junit.Assert.assertTrue("'" + boolean3 + "' != '" + true + "'", boolean3 == true);
+        org.junit.Assert.assertNotNull(cell6);
+        org.junit.Assert.assertTrue("'" + int9 + "' != '" + 1 + "'", int9 == 1);
+        org.junit.Assert.assertTrue("'" + boolean10 + "' != '" + false + "'", boolean10 == false);
+    }
+
+    @Test
+    public void test22() throws Throwable {
+        if (debug)
+            System.out.format("%n%s%n", "RegressionTest0.test22");
+        ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board((int) ' ');
+        ar.edu.unrc.game2048.Board board2 = new ar.edu.unrc.game2048.Board(board1);
+        ar.edu.unrc.game2048.Board board3 = new ar.edu.unrc.game2048.Board(board2);
+        boolean boolean4 = board2.isWinningBoard();
+        ar.edu.unrc.game2048.PlacementStrategy placementStrategy5 = board2.getStrategy();
+        java.util.Set<ar.edu.unrc.game2048.Position> positionSet6 = board2.getEmptyPositions();
+        org.junit.Assert.assertTrue("'" + boolean4 + "' != '" + false + "'", boolean4 == false);
+        org.junit.Assert.assertNotNull(placementStrategy5);
+        org.junit.Assert.assertNotNull(positionSet6);
+    }
+
+    @Test
+    public void test23() throws Throwable {
+        if (debug)
+            System.out.format("%n%s%n", "RegressionTest0.test23");
+        // The following exception was thrown during execution in test generation
+        try {
+            ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board(0);
+            org.junit.Assert.fail("Expected exception of type java.lang.IllegalArgumentException; message: Board size must be positive: 0");
+        } catch (java.lang.IllegalArgumentException e) {
+            // Expected exception.
+        }
+    }
+
+    @Test
+    public void test24() throws Throwable {
+        if (debug)
+            System.out.format("%n%s%n", "RegressionTest0.test24");
+        ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board((int) ' ');
+        ar.edu.unrc.game2048.Board board2 = new ar.edu.unrc.game2048.Board(board1);
+        ar.edu.unrc.game2048.Board board3 = new ar.edu.unrc.game2048.Board(board2);
+        ar.edu.unrc.game2048.PlacementStrategy placementStrategy4 = board2.getStrategy();
+        org.junit.Assert.assertNotNull(placementStrategy4);
+    }
+
+    @Test
+    public void test25() throws Throwable {
+        if (debug)
+            System.out.format("%n%s%n", "RegressionTest0.test25");
+        ar.edu.unrc.game2048.Board board1 = new ar.edu.unrc.game2048.Board((int) ' ');
+        ar.edu.unrc.game2048.Board board2 = new ar.edu.unrc.game2048.Board(board1);
+        ar.edu.unrc.game2048.Board board3 = new ar.edu.unrc.game2048.Board(board2);
+        boolean boolean4 = board3.isFull();
+        org.junit.Assert.assertTrue("'" + boolean4 + "' != '" + false + "'", boolean4 == false);
+    }
+
+    @Test
+    public void test26() throws Throwable {
+        if (debug)
+            System.out.format("%n%s%n", "RegressionTest0.test26");
+        // The following exception was thrown during execution in test generation
+        try {
+            ar.edu.unrc.game2048.Cell cell1 = new ar.edu.unrc.game2048.Cell((int) (short) 100);
+            org.junit.Assert.fail("Expected exception of type java.lang.IllegalArgumentException; message: Cell value must be 0 or a power of two: 100");
+        } catch (java.lang.IllegalArgumentException e) {
+            // Expected exception.
+        }
     }
 }
 

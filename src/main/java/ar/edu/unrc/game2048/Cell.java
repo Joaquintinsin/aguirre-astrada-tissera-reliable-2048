@@ -2,6 +2,8 @@ package ar.edu.unrc.game2048;
 
 import java.util.Objects;
 
+import randoop.CheckRep;
+
 /**
  * Represents a single cell in the 2048 game board.
  * A cell is either empty (value = 0) or contains a power of two (2, 4, 8, ...).
@@ -34,6 +36,9 @@ public final class Cell {
     public Cell(int value) {
         if (value < 0) {
             throw new IllegalArgumentException("Cell value cannot be negative: " + value);
+        }
+        if (value != 0 && (value & (value - 1)) != 0) {
+            throw new IllegalArgumentException("Cell value must be 0 or a power of two: " + value);
         }
         this.value = value;
     }
@@ -84,6 +89,28 @@ public final class Cell {
                     "Cannot merge cells: " + this + " and " + other);
         }
         return new Cell(this.value * 2);
+    }
+
+    /**
+     * Checks the representation invariant of this cell:
+     * the value must be non-negative, and must be either 0 (empty) or a power of
+     * two.
+     *
+     * Annotated with {@code @CheckRep} so that Randoop uses it as a contract:
+     * generated sequences that produce a Cell violating this invariant are
+     * reported as error-revealing tests.
+     *
+     * @return true if the invariant holds, false otherwise
+     */
+    @CheckRep
+    public boolean repOK() {
+        if (value < 0) {
+            return false;
+        }
+        if (value == 0) {
+            return true;
+        }
+        return (value & (value - 1)) == 0;
     }
 
     /**
