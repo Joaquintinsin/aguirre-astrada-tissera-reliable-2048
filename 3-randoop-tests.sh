@@ -1,9 +1,11 @@
 #!/bin/bash
 
+mvn -f pom.xml clean compile
+
 echo "Testeando antes de hacer Randoop..."
 LOG_FILE=tests_antes_de_randoop.log
 echo "Resultados guardados en $LOG_FILE"
-mvn test > $LOG_FILE
+mvn -f pom.xml test > $LOG_FILE
 
 echo "Haciendo Randoop..."
 java -cp "lib/randoop-all-4.3.4.jar:target/classes" \
@@ -23,4 +25,4 @@ java -cp "lib/randoop-all-4.3.4.jar:target/classes" \
 echo "Testeando despues de hacer Randoop..."
 LOG_FILE=tests_despues_de_randoop.log
 echo "Resultados guardados en $LOG_FILE"
-mvn test > $LOG_FILE
+mvn -f pom.xml test > $LOG_FILE

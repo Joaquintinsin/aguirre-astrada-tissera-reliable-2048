@@ -1,29 +1,6 @@
 #!/bin/bash
-# Settear Java 8
 
-# Hacer el README de jdk 8 primero
-# Para que este .sh se quede en la terminal actual, hacer `source ./0-settear-java.sh`
-# Pone temporalmente en la terminal java 8 para correr el proyecto
-
-type -a java
-type -a javac
-readlink -f "$(which java)"
-readlink -f "$(which javac)"
-echo "$JAVA_HOME"
-echo "$PATH"
-sudo update-alternatives --display java
-sudo update-alternatives --display javac
-
-export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_501
-export PATH="$JAVA_HOME/bin:$PATH"
-hash -r
-
-java -version
-javac -version
-
-echo "============================"
-echo "Java deberia ser 1.8"
-echo "============================"
+# Para correr este script se necesita que java sea 1.8
 
 # generate_evosuite_tests.sh
 
@@ -68,6 +45,3 @@ TARGET_CLASS="ar.edu.unrc.game2048.Position"
 echo "Generating EvoSuite tests for $TARGET_CLASS class..."
 java -jar "$EVOSUITE_JAR" -projectCP "$CLASS_PATH" -class $TARGET_CLASS \
     -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java
-
-# Run tests
-mvn -f pom-evosuite.xml test

@@ -1,1 +1,5 @@
+ar.edu.unrc.game2048.Position_ESTest_scaffolding
+ar.edu.unrc.game2048.DeterministicPlacement_ESTest_scaffolding
+ar.edu.unrc.game2048.Board_ESTest_scaffolding
 ar.edu.unrc.game2048.Cell_ESTest_scaffolding
+ar.edu.unrc.game2048.NonDeterministicPlacement_ESTest_scaffolding
