@@ -14,15 +14,12 @@ java -cp "lib/randoop-all-4.3.4.jar:target/classes" \
   --testclass=ar.edu.unrc.game2048.Board \
   --testclass=ar.edu.unrc.game2048.DeterministicPlacement \
   --testclass=ar.edu.unrc.game2048.Position \
-  --omit-methods="\
-    ar.edu.unrc.game2048.Board\(\)|\
-    ar.edu.unrc.game2048.Board\(\s*int\s*\)$|\
-    ar.edu.unrc.game2048.Board\(\s*ar.edu.unrc.game2048.Board\s*\)$" \
+  --omit-methods-file=omit-methods.txt \
+  --forbid-null=true \
+  --null-ratio=0 \
   --time-limit=10 \
   --junit-output-dir=src/test/java \
   --junit-package-name=randoopTests
 
 echo "Testeando despues de hacer Randoop..."
-LOG_FILE=tests_despues_de_randoop.log
-echo "Resultados guardados en $LOG_FILE"
-mvn -f pom.xml test > $LOG_FILE
+mvn -f pom.xml test

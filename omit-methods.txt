@@ -1,0 +1,4 @@
+^ar\.edu\.unrc\.game2048\.Board\(\)$
+^ar\.edu\.unrc\.game2048\.Board\(int\)$
+^ar\.edu\.unrc\.game2048\.Board\(ar\.edu\.unrc\.game2048\.Board\)$
+^ar\.edu\.unrc\.game2048\.NonDeterministicPlacement\(.*\)$
