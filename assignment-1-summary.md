@@ -1,3 +1,5 @@
+# Assignment 1
+
 A lo largo de este proyecto, con nuestro equipo fuimos encontrando desafios siguiendo las cuatro fases pedidas como tarea.
 
 Antes de comenzar, leimos las clases principales `Board`, `MainCLI` y `Cell`.
