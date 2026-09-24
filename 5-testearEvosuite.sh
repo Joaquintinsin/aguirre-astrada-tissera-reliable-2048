@@ -5,4 +5,5 @@
 # Requiere separateClassLoader = false en los *_ESTest.java
 # Reporte: target/site/jacoco/index.html
 
+echo 'Testear lo que genero Evosuite'
 mvn -f pom-evosuite.xml clean test jacoco:report -Dtest='*_ESTest'
