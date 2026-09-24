@@ -1,4 +1,4 @@
 #!/bin/bash
 
-mvn -f pom-evosuite.xml clean compile
-mvn -f pom-evosuite.xml test jacoco:report
+echo 'Testear los tests comunes'
+mvn -f pom-evosuite.xml clean test jacoco:report -Dtest='BoardTest,CellTest,DeterministicBoardTest,RegressionTest,RegressionTest0'
