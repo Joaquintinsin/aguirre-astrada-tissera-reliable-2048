@@ -990,4 +990,14 @@ class BoardTest {
 
     }
 
+    // ==== repOk tests ====
+    @Test
+    public void repOkValidBoardTest() {
+        // Arrange
+        Board board = new Board(4, new DeterministicPlacement());
+        // Act - Assert
+        assertTrue(board.repOk());
+    }
+
+
 }
