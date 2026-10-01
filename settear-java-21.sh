@@ -5,7 +5,8 @@
 # Settear Java 21
 # Pone temporalmente en la terminal java 21
 
-export JAVA_HOME=/usr/lib/jvm/jdk-21.0.3+9
+#export JAVA_HOME=/usr/lib/jvm/jdk-21.0.3+9
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 export PATH="$JAVA_HOME/bin:$PATH"
 
 java -version

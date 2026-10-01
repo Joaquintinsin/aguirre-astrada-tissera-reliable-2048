@@ -66,12 +66,13 @@ public class MainCLI {
                     continue;
             }
 
+            assert board.repOk();
+
             if (moved) {
                 System.out.println("Tile moved!");
             } else {
                 System.out.println("No tiles moved. Try a different direction.");
             }
-
             System.out.println();
         }
 

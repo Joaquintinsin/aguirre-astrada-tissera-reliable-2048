@@ -53,3 +53,39 @@ Los tres suites se miden con JaCoCo, sin contar MainCLI. Manual y EvoSuite se mi
 - En Cell, Randoop logra más cobertura (100 % / 100 %). luego EvoSuite (97 % de lineas, 94 % de ramas) y por ultimo la suite manual (79 % / 78 %).
 - Igualmente en Board, Randoop es el mas alto (100 % / 97 %), luego EvoSuite (96 % / 87 %) y suite manual (94 % / 85 %).
 - La cobertura de la suite manual con `repOK()` disminuye (Cell baja de 100 % a 79 % de lineas, Board a 94 %). Debido a que se agrego `repOK()` y se corrigio el constructor sin ampliar los tests manuales.
+
+
+## Phase 2: Fuzzing
+
+### Cómo funciona el fuzzer
+El fuzzer genera una secuencia aleatoria de teclas (a, s, w, d), una porlínea, y termina con `q`. El largo se elige al azar entre `min_length` y `max_length`, y cada tecla tiene la misma probabilidad. 
+`CLIRunner` ejecuta el juego por stdin y clasifica el resultado: FAIL si el exit code es distinto de 0 o hay algo en stderr, UNRESOLVED si hay timeout, PASS en otro caso.
+
+### Primeros resultados al ejecutar fuzzer.py
+Summary:
+  PASS        : 20/20
+  FAIL        : 0/20
+  UNRESOLVED  : 0/20
+  
+
+### Ejecución de fuzzer verificando repOK()
+Se modificó el `MainCLI` para comprobar el repOK() del board luego de cada movimiento
+
+**Resultado con 20 partidas**
+Summary:
+  PASS        : 20/20
+  FAIL        : 0/20
+  UNRESOLVED  : 0/20
+
+**Resultado con 200 partidas**
+Summary:
+  PASS        : 200/200
+  FAIL        : 0/200
+  UNRESOLVED  : 0/200
+
+**Resultado con 200 partidas, y entradas de entre 300 y 500 caracteres de movimiento**
+Simula partidas más largas, que llegan al Game Over
+Summary:
+  PASS        : 200/200
+  FAIL        : 0/200
+  UNRESOLVED  : 0/200

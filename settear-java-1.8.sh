@@ -5,7 +5,8 @@
 # Settear Java 1.8
 # Pone temporalmente en la terminal java 1.8
 
-export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_501
+#export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_501
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export PATH="$JAVA_HOME/bin:$PATH"
 
 java -version
