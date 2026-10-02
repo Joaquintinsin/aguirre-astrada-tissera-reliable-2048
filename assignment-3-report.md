@@ -91,3 +91,17 @@ Simula partidas más largas, que llegan al Game Over
 > PASS : 200/200
 > FAIL : 0/200
 > UNRESOLVED : 0/200
+
+## Reflections
+
+EvoSuite logro una cobertura mayor que los tests manuales y que Randoop, pero no consiguió encontrar fallas porque generalmente se basaba en tests de regresión.
+
+Randoop en cambio sí que consiguió encontrar fallas, por ejemplo de NullPointerException o IllegalArgumentException que fuimos solucionando sin problema. Por más que los tests sean más ilegibles que los que genera EvoSuite por ejemplo, el haber creado los tests por separado no molestaban en el proceso de testing, solo añadían tests adicionales.
+
+Como ninguna de las dos herramientas anteriores podía probar la interfaz del juego, ni pudo jugar, se decidió incorporar la técnica de fuzzing, que concluyó esta parte del trabajo práctico.
+
+La técnica de fuzzing permitió una implementación elegante y simple para testear la interfaz del juego con muchos movimientos de forma rápida. Al agregar la aserción de repOk luego de realizar cualquier movimiento, podíamos detectar ese crasheo si llegaba a ocurrir, sin embargo como la implementación del juego quedó correcta, no se llega a apreciar ningún crasheo (contrastado también con el reporte anteriormente hecho en la etapa de Fuzzing).
+
+Podemos concluír que los tests manuales fueron una tarea tediosa pero necesaria para construír las etapas siguientes, y fueron (y seguirán siendo) los más entendibles y simples, porque fueron generados por humanos para humanos.
+
+El uso de las herramientas facilitó crear más tests sobre el código existente y ayudó a detectar algunos bugs que se solucionaron de forma eficaz, y la combinación entre ellas evidencian una mejoría en el proceso de testing y de creación de software en general.
