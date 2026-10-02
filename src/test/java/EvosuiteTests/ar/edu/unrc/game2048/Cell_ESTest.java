@@ -13,7 +13,7 @@ import org.evosuite.runtime.EvoRunner;
 import org.evosuite.runtime.EvoRunnerParameters;
 import org.junit.runner.RunWith;
 
-@RunWith(EvoRunner.class) @EvoRunnerParameters(mockJVMNonDeterminism = true, useVFS = true, useVNET = true, resetStaticState = true, separateClassLoader = true, useJEE = true) 
+@RunWith(EvoRunner.class) @EvoRunnerParameters(mockJVMNonDeterminism = true, useVFS = true, useVNET = true, resetStaticState = true, separateClassLoader = false, useJEE = true)
 public class Cell_ESTest extends Cell_ESTest_scaffolding {
 
   @Test(timeout = 4000)
@@ -21,7 +21,7 @@ public class Cell_ESTest extends Cell_ESTest_scaffolding {
       Cell cell0 = new Cell(16);
       assertFalse(cell0.isEmpty());
       assertEquals(16, cell0.getValue());
-      
+
       Cell cell1 = cell0.mergeWith(cell0);
       boolean boolean0 = cell1.equals(cell0);
       assertEquals("32", cell1.toString());
@@ -145,10 +145,10 @@ public class Cell_ESTest extends Cell_ESTest_scaffolding {
       Cell cell0 = new Cell(2);
       Cell cell1 = Cell.EMPTY;
       // Undeclared exception!
-      try { 
+      try {
         cell0.EMPTY.mergeWith(cell1);
         fail("Expecting exception: IllegalArgumentException");
-      
+
       } catch(IllegalArgumentException e) {
          //
          // Cannot merge cells: . and .
@@ -161,10 +161,10 @@ public class Cell_ESTest extends Cell_ESTest_scaffolding {
   public void test16()  throws Throwable  {
       Cell cell0 = Cell.EMPTY;
       // Undeclared exception!
-      try { 
+      try {
         cell0.mergeWith((Cell) null);
         fail("Expecting exception: IllegalArgumentException");
-      
+
       } catch(IllegalArgumentException e) {
          //
          // Cannot merge cells: . and null
@@ -190,7 +190,7 @@ public class Cell_ESTest extends Cell_ESTest_scaffolding {
       try {
         cell0 = new Cell(2731);
         fail("Expecting exception: IllegalArgumentException");
-      
+
       } catch(IllegalArgumentException e) {
          //
          // Cell value must be 0 or a power of two: 2731
@@ -212,7 +212,7 @@ public class Cell_ESTest extends Cell_ESTest_scaffolding {
       try {
         cell0 = new Cell((-32));
         fail("Expecting exception: IllegalArgumentException");
-      
+
       } catch(IllegalArgumentException e) {
          //
          // Cell value cannot be negative: -32

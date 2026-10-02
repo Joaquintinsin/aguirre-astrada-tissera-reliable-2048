@@ -21,17 +21,17 @@ import org.evosuite.runtime.EvoRunner;
 import org.evosuite.runtime.EvoRunnerParameters;
 import org.junit.runner.RunWith;
 
-@RunWith(EvoRunner.class) @EvoRunnerParameters(mockJVMNonDeterminism = true, useVFS = true, useVNET = true, resetStaticState = true, separateClassLoader = true, useJEE = true) 
+@RunWith(EvoRunner.class) @EvoRunnerParameters(mockJVMNonDeterminism = true, useVFS = true, useVNET = true, resetStaticState = true, separateClassLoader = false, useJEE = true)
 public class Board_ESTest extends Board_ESTest_scaffolding {
 
   @Test(timeout = 4000)
   public void test00()  throws Throwable  {
       Board board0 = new Board();
       // Undeclared exception!
-      try { 
+      try {
         board0.validatePosition(0, 1438);
         fail("Expecting exception: IndexOutOfBoundsException");
-      
+
       } catch(IndexOutOfBoundsException e) {
          //
          // Position (0, 1438) is out of bounds for board size 4
@@ -44,10 +44,10 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
   public void test01()  throws Throwable  {
       Board board0 = new Board();
       // Undeclared exception!
-      try { 
+      try {
         board0.getCell(4, 4);
         fail("Expecting exception: IndexOutOfBoundsException");
-      
+
       } catch(IndexOutOfBoundsException e) {
          //
          // Position (4, 4) is out of bounds for board size 4
@@ -80,11 +80,11 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
       LinkedList<Cell> linkedList0 = new LinkedList<Cell>();
       boolean boolean0 = board0.moveUp();
       assertTrue(boolean0);
-      
+
       Cell cell0 = board0.getCell(0, 0);
       linkedList0.add(cell0);
       assertEquals("2", cell0.toString());
-      
+
       board0.removeEmptyCells(linkedList0);
       assertTrue(board0.repOk());
   }
@@ -112,10 +112,10 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
   public void test07()  throws Throwable  {
       Board board0 = new Board();
       // Undeclared exception!
-      try { 
+      try {
         board0.validatePosition((-3264), (-3264));
         fail("Expecting exception: IndexOutOfBoundsException");
-      
+
       } catch(IndexOutOfBoundsException e) {
          //
          // Position (-3264, -3264) is out of bounds for board size 4
@@ -129,10 +129,10 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
       DeterministicPlacement deterministicPlacement0 = new DeterministicPlacement();
       Board board0 = new Board(3, deterministicPlacement0);
       // Undeclared exception!
-      try { 
+      try {
         board0.removeEmptyCells((List<Cell>) null);
         fail("Expecting exception: NullPointerException");
-      
+
       } catch(NullPointerException e) {
          //
          // no message in exception (getMessage() returned null)
@@ -144,10 +144,10 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
   public void test09()  throws Throwable  {
       Board board0 = new Board();
       // Undeclared exception!
-      try { 
+      try {
         board0.padWithEmptyCells((List<Cell>) null);
         fail("Expecting exception: NullPointerException");
-      
+
       } catch(NullPointerException e) {
          //
          // no message in exception (getMessage() returned null)
@@ -166,10 +166,10 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
   public void test11()  throws Throwable  {
       Board board0 = new Board();
       // Undeclared exception!
-      try { 
+      try {
         board0.mergeAdjacentEqualsCells((List<Cell>) null);
         fail("Expecting exception: NullPointerException");
-      
+
       } catch(NullPointerException e) {
          //
          // no message in exception (getMessage() returned null)
@@ -194,7 +194,7 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
       Board board0 = new Board();
       Board board1 = new Board(board0);
       assertTrue(board1.equals((Object)board0));
-      
+
       board0.moveDown();
       boolean boolean0 = board0.equals(board1);
       assertFalse(board1.equals((Object)board0));
@@ -446,10 +446,10 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
       Board board0 = new Board();
       Cell cell0 = Cell.EMPTY;
       // Undeclared exception!
-      try { 
+      try {
         board0.setCell(0, 4, cell0);
         fail("Expecting exception: IndexOutOfBoundsException");
-      
+
       } catch(IndexOutOfBoundsException e) {
          //
          // Position (0, 4) is out of bounds for board size 4
@@ -462,10 +462,10 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
   public void test42()  throws Throwable  {
       Board board0 = new Board();
       // Undeclared exception!
-      try { 
+      try {
         board0.getCell(2, (-3182));
         fail("Expecting exception: IndexOutOfBoundsException");
-      
+
       } catch(IndexOutOfBoundsException e) {
          //
          // Position (2, -3182) is out of bounds for board size 4
@@ -478,10 +478,10 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
   public void test43()  throws Throwable  {
       Board board0 = new Board(4);
       // Undeclared exception!
-      try { 
+      try {
         board0.getCell(552, 1548);
         fail("Expecting exception: IndexOutOfBoundsException");
-      
+
       } catch(IndexOutOfBoundsException e) {
          //
          // Position (552, 1548) is out of bounds for board size 4
@@ -494,10 +494,10 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
   public void test44()  throws Throwable  {
       Board board0 = new Board();
       // Undeclared exception!
-      try { 
+      try {
         board0.setCell(0, 0, (Cell) null);
         fail("Expecting exception: IllegalArgumentException");
-      
+
       } catch(IllegalArgumentException e) {
          //
          // Cell cannot be null
@@ -512,7 +512,7 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
       try {
         board0 = new Board((Board) null);
         fail("Expecting exception: IllegalArgumentException");
-      
+
       } catch(IllegalArgumentException e) {
          //
          // Board to copy cannot be null
@@ -536,7 +536,7 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
       try {
         board0 = new Board(0, (PlacementStrategy) null);
         fail("Expecting exception: IllegalArgumentException");
-      
+
       } catch(IllegalArgumentException e) {
          //
          // Board size must be positive: 0
@@ -551,7 +551,7 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
       try {
         board0 = new Board(0);
         fail("Expecting exception: IllegalArgumentException");
-      
+
       } catch(IllegalArgumentException e) {
          //
          // Board size must be positive: 0
@@ -590,7 +590,7 @@ public class Board_ESTest extends Board_ESTest_scaffolding {
   public void test52()  throws Throwable  {
       Board board0 = new Board();
       assertEquals(4, board0.getSize());
-      
+
       board0.getCell(0, 3);
       assertEquals(0, board0.getScore());
       assertTrue(board0.repOk());

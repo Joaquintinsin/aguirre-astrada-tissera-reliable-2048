@@ -15,7 +15,7 @@ import org.evosuite.runtime.EvoRunnerParameters;
 import org.evosuite.runtime.Random;
 import org.junit.runner.RunWith;
 
-@RunWith(EvoRunner.class) @EvoRunnerParameters(mockJVMNonDeterminism = true, useVFS = true, useVNET = true, resetStaticState = true, separateClassLoader = true, useJEE = true) 
+@RunWith(EvoRunner.class) @EvoRunnerParameters(mockJVMNonDeterminism = true, useVFS = true, useVNET = true, resetStaticState = true, separateClassLoader = false, useJEE = true)
 public class NonDeterministicPlacement_ESTest extends NonDeterministicPlacement_ESTest_scaffolding {
 
   @Test(timeout = 4000)
@@ -30,10 +30,10 @@ public class NonDeterministicPlacement_ESTest extends NonDeterministicPlacement_
   public void test1()  throws Throwable  {
       NonDeterministicPlacement nonDeterministicPlacement0 = new NonDeterministicPlacement();
       // Undeclared exception!
-      try { 
+      try {
         nonDeterministicPlacement0.addTile((Board) null);
         fail("Expecting exception: NullPointerException");
-      
+
       } catch(NullPointerException e) {
          //
          // no message in exception (getMessage() returned null)
@@ -48,10 +48,10 @@ public class NonDeterministicPlacement_ESTest extends NonDeterministicPlacement_
       NonDeterministicPlacement nonDeterministicPlacement0 = new NonDeterministicPlacement();
       Board board0 = new Board();
       // Undeclared exception!
-      try { 
+      try {
         nonDeterministicPlacement0.addTile(board0);
         fail("Expecting exception: IllegalArgumentException");
-      
+
       } catch(IllegalArgumentException e) {
          //
          // -9

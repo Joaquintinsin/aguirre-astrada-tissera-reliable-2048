@@ -14,7 +14,7 @@ import org.evosuite.runtime.EvoRunner;
 import org.evosuite.runtime.EvoRunnerParameters;
 import org.junit.runner.RunWith;
 
-@RunWith(EvoRunner.class) @EvoRunnerParameters(mockJVMNonDeterminism = true, useVFS = true, useVNET = true, resetStaticState = true, separateClassLoader = true, useJEE = true) 
+@RunWith(EvoRunner.class) @EvoRunnerParameters(mockJVMNonDeterminism = true, useVFS = true, useVNET = true, resetStaticState = true, separateClassLoader = false, useJEE = true)
 public class DeterministicPlacement_ESTest extends DeterministicPlacement_ESTest_scaffolding {
 
   @Test(timeout = 4000)
@@ -28,10 +28,10 @@ public class DeterministicPlacement_ESTest extends DeterministicPlacement_ESTest
   public void test1()  throws Throwable  {
       DeterministicPlacement deterministicPlacement0 = new DeterministicPlacement();
       // Undeclared exception!
-      try { 
+      try {
         deterministicPlacement0.addTile((Board) null);
         fail("Expecting exception: NullPointerException");
-      
+
       } catch(NullPointerException e) {
          //
          // no message in exception (getMessage() returned null)
