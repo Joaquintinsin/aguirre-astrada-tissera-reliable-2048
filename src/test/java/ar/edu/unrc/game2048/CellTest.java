@@ -214,10 +214,26 @@ class CellTest {
         assertEquals(str, ".");
     }
 
-    @Test 
+    @Test
     void testCreateCellWithNegativeValue() {
         // act - assert
         assertThrows(IllegalArgumentException.class, () -> new Cell(-2));
     }
 
+    // Cell representation tests
+    @Test
+    void testRepOKEmptyCell() {
+        // Arrange
+        Cell cell = new Cell(0);
+        // Act & Assert
+        assertTrue(cell.repOK());
+    }
+
+    @Test
+    void testRepOKNonEmptyValidCell() {
+        // Arrange
+        Cell cell = new Cell(4);
+        // Act & Assert
+        assertTrue(cell.repOK());
+    }
 }
