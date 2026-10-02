@@ -1,4 +1,5 @@
 # Assignment 2
+
 ## Phase 1
 
 Jacoco report:
@@ -397,7 +398,6 @@ Breakdown by Class
 
 Se implementó `repOK()` en `Cell` para chequear su invariante de representación (valor no negativo, y 0 o potencia de dos):
 
-
 Se anotó con @randoop.CheckRep. Randoop detecta el método público, de instancia, sin parámetros, anotado con @CheckRep y lo usa como contrato: lo evalúa sobre el objeto resultante después de cada llamada de cada secuencia generada, y si devuelve `false` genera un test error-revealing en vez de uno de regresión.
 
 ### Bug encontrado
@@ -411,9 +411,9 @@ org.junit.Assert.assertTrue("Representation invariant failed: Check rep invarian
 ```
 
 100 no es potencia de dos. El constructor de Cell solo valida value < 0 y lanza IllegalArgumentException, pero nunca valida que el valor sea 0 o una potencia de dos.
-Sin `repOK()` como contrato, Randoop hubiera aceptado `new Cell(100)` como una secuencia válida más (test de regresión), sin señalar la inconsistencia entre el constructor y el invariante documentado de la clase. 
- * Se corrige el constructor de la Clase Cell.
+Sin `repOK()` como contrato, Randoop hubiera aceptado `new Cell(100)` como una secuencia válida más (test de regresión), sin señalar la inconsistencia entre el constructor y el invariante documentado de la clase.
 
+- Se corrige el constructor de la Clase Cell.
 
 ## Phase 3 (cont.): repOK() Invariant for Board + Randoop
 

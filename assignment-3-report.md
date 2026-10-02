@@ -61,30 +61,33 @@ El fuzzer genera una secuencia aleatoria de teclas (a, s, w, d), una porlínea, 
 
 ### Primeros resultados al ejecutar fuzzer.py
 
-Summary:
-PASS : 20/20
-FAIL : 0/20
-UNRESOLVED : 0/20
+> Summary:
+> PASS : 20/20
+> FAIL : 0/20
+> UNRESOLVED : 0/20
 
 ### Ejecución de fuzzer verificando repOK()
 
 Se modificó el `MainCLI` para comprobar el repOK() del board luego de cada movimiento
 
 **Resultado con 20 partidas**
-Summary:
-PASS : 20/20
-FAIL : 0/20
-UNRESOLVED : 0/20
+
+> Summary:
+> PASS : 20/20
+> FAIL : 0/20
+> UNRESOLVED : 0/20
 
 **Resultado con 200 partidas**
-Summary:
-PASS : 200/200
-FAIL : 0/200
-UNRESOLVED : 0/200
+
+> Summary:
+> PASS : 200/200
+> FAIL : 0/200
+> UNRESOLVED : 0/200
 
 **Resultado con 200 partidas, y entradas de entre 300 y 500 caracteres de movimiento**
 Simula partidas más largas, que llegan al Game Over
-Summary:
-PASS : 200/200
-FAIL : 0/200
-UNRESOLVED : 0/200
+
+> Summary:
+> PASS : 200/200
+> FAIL : 0/200
+> UNRESOLVED : 0/200
