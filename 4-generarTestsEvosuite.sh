@@ -23,25 +23,25 @@ CLASS_PATH=$(pwd)/target/classes
 TARGET_CLASS="ar.edu.unrc.game2048.Cell"
 echo "Generating EvoSuite tests for $TARGET_CLASS class..."
 java -jar "$EVOSUITE_JAR" -projectCP "$CLASS_PATH" -class $TARGET_CLASS \
-    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java
+    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java/EvosuiteTests
 
 
 TARGET_CLASS="ar.edu.unrc.game2048.Board"
 echo "Generating EvoSuite tests for $TARGET_CLASS class..."
 java -jar "$EVOSUITE_JAR" -projectCP "$CLASS_PATH" -class $TARGET_CLASS \
-    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java
+    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java/EvosuiteTests
 
 TARGET_CLASS="ar.edu.unrc.game2048.DeterministicPlacement"
 echo "Generating EvoSuite tests for $TARGET_CLASS class..."
 java -jar "$EVOSUITE_JAR" -projectCP "$CLASS_PATH" -class $TARGET_CLASS \
-    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java
+    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java/EvosuiteTests
 
 TARGET_CLASS="ar.edu.unrc.game2048.NonDeterministicPlacement"
 echo "Generating EvoSuite tests for $TARGET_CLASS class..."
 java -jar "$EVOSUITE_JAR" -projectCP "$CLASS_PATH" -class $TARGET_CLASS \
-    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java
+    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java/EvosuiteTests
 
 TARGET_CLASS="ar.edu.unrc.game2048.Position"
 echo "Generating EvoSuite tests for $TARGET_CLASS class..."
 java -jar "$EVOSUITE_JAR" -projectCP "$CLASS_PATH" -class $TARGET_CLASS \
-    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java
+    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java/EvosuiteTests

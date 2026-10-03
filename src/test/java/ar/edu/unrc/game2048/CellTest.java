@@ -17,6 +17,14 @@ class CellTest {
         assertEquals(cell.getValue(), 2);
     }
 
+    // Cell value must be 0 or a power of two
+    @Test
+    void testInvalidCellValue() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Cell cell = new Cell(3);
+        });
+    }
+
     @Test
     void testIsEmptyTrue() {
         // arrange
@@ -66,6 +74,17 @@ class CellTest {
         boolean result = cell1.canMergeWith(cell2);
         // assert
         assertTrue(result);
+    }
+
+    @Test
+    void testCanMergeWithNull() {
+        // arrange
+        Cell cell1 = new Cell(2);
+        Cell cell2 = null;
+        // act
+        boolean result = cell1.canMergeWith(cell2);
+        // assert
+        assertFalse(result);
     }
 
     @Test

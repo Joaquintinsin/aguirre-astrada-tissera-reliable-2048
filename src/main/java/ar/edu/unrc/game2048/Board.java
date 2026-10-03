@@ -100,8 +100,12 @@ public class Board {
      * Copy constructor - creates a deep copy of another board.
      *
      * @param other the board to copy
+     * @throws IllegalArgumentException if other == null
      */
     public Board(Board other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Board to copy cannot be null");
+        }
         this.size = other.size;
         this.grid = new Cell[size][size];
         this.score = other.score;

@@ -25,6 +25,7 @@ Al corregir este error, damos inicio a la fase 4 que trata sobre mejoras de dise
 En este commit podemos ver que agregamos la dependencia JaCoCo a nuestro proyecto para seguir mas de cerca la cobertura de nuestros tests y tener un [reporte luego de testear](https://github.com/Seminario-en-Ciencias-de-la-Computacion/basic-design-implementation-and-testing-assignment-aguirre-astrada-tissera/blob/main/target/site/jacoco/index.html).
 
 Mejoramos el diseño haciendo lo siguiente:
+
 - Eliminamos la duplicacion de codigo en los movimientos, refactorizando en metodos con visibilidad protected.
 - Eliminamos las clases internas innecesarias sobre `Board`, que son `Direction` y `Position`, dandoles su lugar adecuado por fuera de la clase para una posible reutilizacion y mejorando la escalabildad.
 - Prevenimos movimientos si el tablero se encuentra en un estado terminado (un tablero ganador o un tablero perdedor).
