@@ -1,8 +1,34 @@
 # Assignment 3
 
+A lo largo de este assignment se crearon scripts para automatizar y facilitar el trabajo de correr ciertos comandos, a continuación detallo cada uno:
+
+- [1-pitest-report.sh](./1-pitest-report.sh)
+  **REQUIERE JAVA 21**: Corre y genera el reporte PITest sobre el proyecto
+- [2-jacoco-report.sh](./2-jacoco-report.sh)
+  **REQUIERE JAVA 21**: Corre y genera el reporte JaCoCo sobre el proyecto
+- [3-randoop-tests.sh](./3-randoop-tests.sh)
+  **REQUIERE JAVA 21**: Corre la herramienta Randoop sobre el proyecto para generar tests
+
+---
+
+- [4-generarTestsEvosuite.sh](./4-generarTestsEvosuite.sh)
+  **REQUIERE JAVA 1.8**: Corre la herramienta EvoSuite sobre el proyecto para generar tests
+- [5-testearEvosuite.sh](./5-testearEvosuite.sh)
+  **REQUIERE JAVA 1.8**: Testea el proyecto luego de obtener los tests generados por evosuite
+- [6-jacoco-report-1.8.sh](./6-jacoco-report-1.8.sh)
+  **REQUIERE JAVA 1.8**: Genera los reportes JaCoCo para los tests comunes + Randoop y para los tests de EvoSuite y los pone en la carpeta `reports/jacoco/` que le corresponda
+- [7-pitest-report-1.8.sh](./7-pitest-report-1.8.sh)
+  **REQUIERE JAVA 1.8**: Corre y genera el reporte PITest sobre el proyecto. Deja el reporte generado en la carpeta `reports/pitest/` **AVISO IMPORTANTE**: Puede tomar muchisimo tiempo y consumir muchos recursos porque debe buscar todos los tests que matan a los mutantes que genera, y como ahora la test-suite es muy grande, demora mucho
+
 ## Phase 1: Automated Test Generation with EvoSuite
 
-Se generaron tests con EvoSuite 1.0.6 (`4-generarTestsEvosuite.sh`) para `Cell`, `Board`, `Position`, `DeterministicPlacement` y `NonDeterministicPlacement`. Los tests se encuentran en `src/test/java/EvosuiteTests/`.
+Se generaron tests con EvoSuite 1.0.6 (`4-generarTestsEvosuite.sh`) para `Cell`, `Board`, `Position`, `DeterministicPlacement` y `NonDeterministicPlacement`. Los tests se encuentran en `src/test/java/EvosuiteTests/ar/edu/unrc/game2048`.
+
+### Corrida de PITest luego de generar los tests con Randoop y EvoSuite
+
+Para correr el reporte de mutantes con las test suite que genera Randoop y Evosuite se agrego el script [7-pitest-report.1.8.sh](./7-pitest-report-1.8.sh).
+
+Un detalle no menor es que para correr los scripts que terminan en 1.8 requieren que la versión de Java sea la 1.8, por eso están incluidos los scripts [settear-java-1.8.sh](./settear-java-1.8.sh) y [settear-java-21.sh](./settear-java-21.sh)
 
 ### 1.3 Medicion de cobertura
 
@@ -24,6 +50,8 @@ mvn -f pom-evosuite.xml clean test jacoco:report -Dtest='*_ESTest'
 | NonDeterministicPlacement | 100 %       | 100 %      |
 | DeterministicPlacement    | 100 %       | 100 %      |
 
+Para visualizar este reporte, se puede acceder al archivo de reporte de JaCoCo, en [este archivo](./reports/jacoco/tests-evosuite/index.html) visualizando por un navegador por ejemplo, o con alguna herramienta de HTML.
+
 ### Comparacion con suite manual y con Randoop
 
 Los tres suites se miden con JaCoCo, sin contar MainCLI. Manual y EvoSuite se midieron con el mismo comando y los mismos criterios (`mvn -f pom-evosuite.xml clean test jacoco:report -Dtest=...`, con `-Dtest` eligiendo los tests de cada suite).
@@ -36,21 +64,24 @@ Los tres suites se miden con JaCoCo, sin contar MainCLI. Manual y EvoSuite se mi
 | DeterministicPlacement    | 100 %                        | 100 % / 100 %                   | 100 % / 100 %              | 100 % / 100 %           |
 | NonDeterministicPlacement | 100 %                        | 100 % / 100 %                   | 100 % / 100 %              | 100 % / 100 %           |
 
+Para visualizar este reporte, se puede acceder al archivo de reporte de JaCoCo, en [este archivo](./reports/jacoco/tests-comunes/index.html) visualizando por un navegador por ejemplo, o con alguna herramienta de HTML.
+
 - _A2: Assignment 2_
 - "Manual antes de repOK" es la cobertura reportada en Assignment 2 (Fase 2). "Manual con repOK" es la cobertura actual del suite manual medida con `mvn -f pom-evosuite.xml clean test jacoco:report -Dtest='BoardTest,CellTest,DeterministicBoardTest'`.
 
 **Cantidad de Tests:**
 
-- Suite EvoSuite son 95 tests. (Mas compacto)
-- Suite Manual son 102 tests.
-- Suite Randoop son 243 tests. (Mas cobertura)
+- Suite EvoSuite son 96 tests. (Mas compacto)
+- Suite Manual son 108 tests.
+- Suite Randoop son 417 tests. (Mas cobertura)
+- Total: 621 tests.
 
 **Comparacion**
 
 - Los tres suites cubren al 100% Position, DeterministicPlacement y NonDeterministicPlacement en sentencias y ramas.
 - En Cell, Randoop logra más cobertura (100 % / 100 %). luego EvoSuite (97 % de lineas, 94 % de ramas) y por ultimo la suite manual (79 % / 78 %).
 - Igualmente en Board, Randoop es el mas alto (100 % / 97 %), luego EvoSuite (96 % / 87 %) y suite manual (94 % / 85 %).
-- La cobertura de la suite manual con `repOK()` disminuye (Cell baja de 100 % a 79 % de lineas, Board a 94 %). Debido a que se agrego `repOK()` y se corrigio el constructor sin ampliar los tests manuales.
+- La cobertura de la suite manual con `repOK()` disminuye (Cell baja de 100 % a 98 % de lineas, Board a 99 %). Debido a que algunas ramas son imposibles de alcanzar porque requeririan crear un Cell o un Board con una representación inválida, lo cuál no lo permite el propio código (alcanza una excepción antes que llegue a la representación inválida, por ejemplo).
 
 ## Phase 2: Fuzzing
 
