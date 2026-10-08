@@ -68,7 +68,6 @@ class BoardTest {
         assertThrows(IllegalArgumentException.class, () -> {
             Board board = new Board(inputSize);
         });
-
     }
 
     @Test
@@ -110,6 +109,16 @@ class BoardTest {
         Board copy = new Board(board);
         // Assert
         assertEquals(board, copy);
+    }
+
+    @Test
+    public void invalidCopyConstructorTest() {
+        // Arrange
+        Board copy = null;
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            Board board = new Board(copy);
+        });
     }
 
     @Test
@@ -891,7 +900,7 @@ class BoardTest {
                 "Score: 0\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n|    |    |    |    |\n+----+----+----+----+\n");
     }
 
-    @Test 
+    @Test
     public void equalsPositionSelfTest(){
         // Arrange
         Position position = new Position(1, 1);
@@ -922,7 +931,7 @@ class BoardTest {
         assertFalse(result);
     }
 
-    @Test 
+    @Test
     public void equalsPositionNullObjectTest(){
         // Arrange
         Position position = new Position(1, 1);
@@ -944,7 +953,7 @@ class BoardTest {
         assertFalse(result);
     }
 
-    @Test 
+    @Test
     public void equalsPositionSelfColumnTest(){
         // Arrange
         Position position = new Position(1, 1);
@@ -955,7 +964,7 @@ class BoardTest {
         assertFalse(result);
     }
 
-    
+
     // ==== Hash Code test ====
     @Test
     public void hashCodeTest() {
@@ -979,7 +988,7 @@ class BoardTest {
         assertNotEquals(0, result);
     }
 
-    @Test 
+    @Test
     public void toStringPositionTest() {
         // Arrange
         Position position = new Position(1, 2);
