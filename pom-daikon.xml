@@ -16,6 +16,7 @@
         <junit.jupiter.version>5.9.2</junit.jupiter.version>
         <junit.vintage.version>5.9.2</junit.vintage.version>
         <evosuiteVersion>1.0.6</evosuiteVersion>
+        <daikon.version>5.9.0</daikon.version>
     </properties>
 
     <build>
@@ -115,6 +116,15 @@
             <version>4.3.4</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/randoop-all-4.3.4.jar</systemPath>
+        </dependency>
+        <!-- Daikon is kept in this POM only so its classpath is isolated from the
+             regular project build (mvn -f pom.xml ...). -->
+        <dependency>
+            <groupId>daikon</groupId>
+            <artifactId>daikon</artifactId>
+            <version>${daikon.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/daikon.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
