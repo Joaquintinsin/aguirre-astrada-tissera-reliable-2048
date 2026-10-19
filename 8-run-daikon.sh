@@ -1,10 +1,12 @@
 #!/bin/bash
 
-export JDK8=/usr/lib/jvm/jdk1.8.0_501
+export JDK8=/usr/lib/jvm/java-8-openjdk-amd64
 export JDK11=/usr/lib/jvm/java-11-openjdk-amd64
 
-rm -rf daikon-traces
+export PATH="$JDK11/bin:$PATH"
+
 mkdir -p daikon-traces
+rm -f daikon-traces/JUnitCore.dtrace* # Cli traces are not deleted 
 mvn -f pom-daikon.xml dependency:build-classpath \
     -Dmdep.outputFile=target/daikon-classpath.txt
 
