@@ -77,3 +77,87 @@ Se guardan **ambas versiones por separado** para poder compararlas en el anális
 
 - [daikon-output-tests-only.txt](./daikon-output-tests-only.txt) (1151 líneas) — solo con `JUnitCore.dtrace.gz` (417 tests).
 - [daikon-output.txt](./daikon-output.txt) (1589 líneas) — con todas las trazas combinadas (tests + 20 partidas de CLI).
+
+
+## Phase 3: Inspect and Evaluate the Inferred Invariants
+
+### 3.1 Understand the Program Point Structure
+ Archivos analizados
+- `daikon-output-tests-only.txt` 
+- `daikon-output.txt` 
+
+### 3.2 Evaluate the Invariants
+
+Analisis de clase Cell en daikon-output-tets-only
+
+Invariantes
+this.value >= 0
+- **correct and useful** : un valor negatico sería invalido
+this.value >= ar.edu.unrc.game2048.Cell.EMPTY.value
+- **correct but trivial**
+
+-No se captura como invariante que value sea 0 ó potencia de 2 
+
+Metodo CanMergeWith
+Precondiciones
+-ar.edu.unrc.game2048.Cell.EMPTY.value <= other.value: **correct but trivial**
+Postcondiciones 
+-(return == true)  ==>  (this.value one of { 2, 4, 8 }): **too strong**. Dos celdas de valor 16 deberian dar true cuando se consulta si se pueden fusionar.
+
+Metodo MergeWith
+Precondiciones
+-this.value one of { 2, 4 }: **too strong**. Dos celdas de valor 8 se deberian poder fusionar.
+
+Metodo isEmpty
+Postcondiciones
+-(this.value one of { 2, 4, 8 })  <==>  (this.value > ar.edu.unrc.game2048.Cell.EMPTY.value)  **too strong**. Si value fuera 32, no vale la biimplicación.
+
+
+Observación: en este punto Daikon no infiere que `value` sea 0 o una potencia de 2. Tampoco infiere `2 * this.value == return.value` en `mergeWith`, porque con solo dos valores observados no puede distinguir una relación lineal de una coincidencia.
+
+
+Analisis de clase Board en daikon-output-test-only
+
+Invariantes
+this.size == size(this.grid[])
+- **correct and useful**. Relaciona el campo `size` con la grilla real.
+this.size >= 1
+- **correct and useful**. Un tablero de tamaño 0 o negativo es inválido.
+this.grid != null
+- **correct and useful**
+this.grid.getClass().getName() == ar.edu.unrc.game2048.Cell[][].class
+- **correct but trivial**
+this.grid[] elements != null
+- **correct and useful**
+this.score one of { 0, 4 }
+- **too strong**. Tras más fusiones el puntaje toma otros valores (8, 12, ...).
+ar.edu.unrc.game2048.Board.DEFAULT_SIZE != this.size
+- **too strong**. Un `Board(5, strat)` la rompe (`5 - 1 == 4`).
+ar.edu.unrc.game2048.Board.DEFAULT_SIZE >= this.score
+- **too strong**. El score puede aumentar y superar DEFAULT_SIZE
+ar.edu.unrc.game2048.Board.WINNING_VALUE >= this.size
+- **too strong**. No hay tableros lo suficientemente grandes.
+ar.edu.unrc.game2048.Board.WINNING_VALUE > this.score
+- **too strong**. No se probaron partidas que llegaron a ganar y tener un score mayor.
+
+
+
+### 3.3 Cambios al ampliar la traza (daikon-output)
+
+Al sumar las 20 partidas de CLI a los 417 tests, la inferencia cambió.
+
+**Los conjuntos de valores se reemplazaron por propiedades más generales.**
+En tests-only, Daikon veía pocos valores distintos y reportaba invariantes del tipo
+`one of {...}`. Con las partidas esos conjuntos dejaron de cumplirse:
+
+- `Cell`: `this.value one of {2, 4, 8}` y `mergeWith:::ENTER this.value one of {2, 4}`
+  pasaron a `this.value >= 2` y `this.value is a power of 2`.
+- `Board`: `score one of {0, 4}` desapareció del `OBJECT`, y apareció `score >= 0` y `score % DEFAULT_SIZE == 0`.
+  También se amplió `setCell:::ENTER`, de `cell.value == 2` a `cell.value one of {2, 4}`.
+
+
+**Aparecieron invariantes verdaderas que antes no se distinguían de una coincidencia.**
+- `Cell.mergeWith:::EXIT`: `2 * this.value - return.value == 0`. Era la postcondición más importante de `Cell` y los tests solos no la produjeron.
+- `Board`: `this.score >= orig(this.score)` ya estaba en `moveLeft` y `moveRight`
+  y ahora vale en los cuatro movimientos.
+
