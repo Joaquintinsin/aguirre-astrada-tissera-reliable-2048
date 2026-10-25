@@ -75,11 +75,12 @@ public class Board {
         this.grid = new Cell[size][size];
         this.score = 0;
         initializeEmpty();
-        this.strategy = new NonDeterministicPlacement();
+        this.strategy = new DeterministicPlacement();
+        //this.strategy = new NonDeterministicPlacement();
         this.strategy.addTile(this);
         this.strategy.addTile(this);
     }
-
+ 
     public Board(int size, PlacementStrategy strat) {
         if (size <= 0) {
             throw new IllegalArgumentException("Board size must be positive: " + size);
