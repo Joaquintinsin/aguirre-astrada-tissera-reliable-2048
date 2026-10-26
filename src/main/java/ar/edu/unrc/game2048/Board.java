@@ -66,7 +66,7 @@ public class Board {
      *
      * @param size the board size (must be > 0)
      * @throws IllegalArgumentException if size <= 0
-     */
+     */ 
     public Board(int size) {
         if (size <= 0) {
             throw new IllegalArgumentException("Board size must be positive: " + size);
@@ -75,19 +75,19 @@ public class Board {
         this.grid = new Cell[size][size];
         this.score = 0;
         initializeEmpty();
-        this.strategy = new DeterministicPlacement();
-        //this.strategy = new NonDeterministicPlacement();
+        this.strategy = new NonDeterministicPlacement();
         this.strategy.addTile(this);
         this.strategy.addTile(this);
     }
- 
+    
     public Board(int size, PlacementStrategy strat) {
         if (size <= 0) {
             throw new IllegalArgumentException("Board size must be positive: " + size);
         }
         this.strategy = strat;
         if (strat == null) {
-            this.strategy = new NonDeterministicPlacement();
+            //this.strategy = new NonDeterministicPlacement();
+            this.strategy = new DeterministicPlacement();
         }
         this.size = size;
         this.grid = new Cell[size][size];

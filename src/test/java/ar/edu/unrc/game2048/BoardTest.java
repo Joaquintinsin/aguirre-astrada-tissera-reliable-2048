@@ -23,13 +23,13 @@ class BoardTest {
         assertNotNull(board);
     }
 
-    /*@Test
+    @Test
     public void nonDeterministicClassWhenUsingDefaultConstructorTest() {
         // Arrange & Act
         Board board = new Board();
         // Assert
         assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
-    }*/
+    }
 
     @Test
     public void parameterConstructorTest() {
@@ -41,15 +41,16 @@ class BoardTest {
 
     }
 
-    /*@Test
+    @Test
     public void nonDeterministicClassWhenUsingsizeParameterizedConstructorTest() {
         // Arrange & Act
         int inputSize = 6;
         Board board = new Board(inputSize);
         // Assert
         assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
-    }*/
+    }
 
+    /*
     @Test
     public void strategyNullConstructorTest() {
         // Arrange & Act
@@ -59,6 +60,7 @@ class BoardTest {
         // Assert
         assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
     }
+    */
 
     @Test
     public void parameterConstructorNegativeNumberExeptionTest() {
