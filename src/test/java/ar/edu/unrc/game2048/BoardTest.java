@@ -50,7 +50,7 @@ class BoardTest {
         assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
     }
 
-    /*
+    
     @Test
     public void strategyNullConstructorTest() {
         // Arrange & Act
@@ -60,7 +60,7 @@ class BoardTest {
         // Assert
         assertEquals(board.getStrategy().getClass(), new NonDeterministicPlacement().getClass());
     }
-    */
+    
 
     @Test
     public void parameterConstructorNegativeNumberExeptionTest() {

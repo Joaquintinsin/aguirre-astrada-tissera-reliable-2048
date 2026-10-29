@@ -29,7 +29,7 @@ java -jar "$EVOSUITE_JAR" -projectCP "$CLASS_PATH" -class $TARGET_CLASS \
 TARGET_CLASS="ar.edu.unrc.game2048.Board"
 echo "Generating EvoSuite tests for $TARGET_CLASS class..."
 java -jar "$EVOSUITE_JAR" -projectCP "$CLASS_PATH" -class $TARGET_CLASS \
-    -Dsearch_budget=$SEARCH_BUDGET -Dtest_dir=src/test/java/EvosuiteTests
+    -Dnull_probability=0.0 -Dminimization_timeout=300 -Dassertion_timeout=300 -Dsearch_budget=120 -Dtest_dir=src/test/java/EvosuiteTests
 
 TARGET_CLASS="ar.edu.unrc.game2048.DeterministicPlacement"
 echo "Generating EvoSuite tests for $TARGET_CLASS class..."

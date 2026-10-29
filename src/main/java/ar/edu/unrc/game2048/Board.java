@@ -86,8 +86,8 @@ public class Board {
         }
         this.strategy = strat;
         if (strat == null) {
-            //this.strategy = new NonDeterministicPlacement();
-            this.strategy = new DeterministicPlacement();
+            this.strategy = new NonDeterministicPlacement();
+            //this.strategy = new DeterministicPlacement();
         }
         this.size = size;
         this.grid = new Cell[size][size];
