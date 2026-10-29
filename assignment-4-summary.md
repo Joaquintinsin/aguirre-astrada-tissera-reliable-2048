@@ -254,3 +254,27 @@ Se observa que:
 Para la clase **Cell** se infirió bien una parte y le faltó una parte importante.
 
 Para la clase **Board** todo lo que contemplamos en repOK está inferido en Daikon. Aunque hay cosas que Daikon agrega de más o incorrectas.
+
+### 4.2 Daikon vs. Manual and Automated Test Oracles
+
+Para este programa consideramos que los oráculos más útiles fueron los escritos a mano: las aserciones de los tests manuales y la implementación de repOK()` porque las herramientas automáticas cuando decidían qué estaba bien y qué estaba mal dependían de un oráculo escrito a mano o heredaban los errores de la implementación.
+
+**Aserciones manuales.** Son las únicas que codifican lo que el juego debería hacer y no lo que hace. Por eso fueron las que encontraron los bugs de movimiento en el Assignment 1 (por ejemplo, el recorrido de `moveDown` que no llegaba a la fila 0 por faltar el `<=`). Las herramientas que generan oráculos observando la ejecución lo habrían tomado como el comportamiento esperado. En cuanto a cobertura la suite manual tiene menos por la inclusión del repOk() en el código que tiene ramas que no son alcanzables con boards generados con sus constructores.
+
+**`repOK()`.** Fue el oráculo que más rindió, porque se escribe una sola vez y lo puede reutilizar cualquier generador de entradas:
+
+- Con `@CheckRep`, Randoop lo evaluó después de cada llamada y encontró que `new Cell(100)` producía una celda inválida.
+- En el fuzzing del Assignment 3, `MainCLI` lo chequea después de cada movimiento en 200 partidas largas para encontrar estados inválidos.
+
+**Aserciones de regresión de Randoop y EvoSuite.** Registran lo que el código hizo en una corrida, asi que no detectan errores. EvoSuite logró mucha cobertura pero no encontró detecto fallas. Además, son frágiles: tuvimos que regenerar los tests de EvoSuite para que fueran deterministas. 
+
+**Invariantes de Daikon.** Son los oráculos automáticos que generalizan sobre muchas ejecuciones y dependen la calidad de las trazas.
+
+- Con solo los 417 tests, Daikon produjo algunos invariantes demasiado fuertes ( por ejemplo, `score one of {0, 4}` o `WINNING_VALUE >= size`) y no infirió que `value` fuera potencia de 2.
+- Al agregar las 20 partidas de CLI los invariantes de debilitaron, pero aún así no se infiere que `value`  debe ser potencia de 2.
+- Como vimos en 4.1, todo lo que Daikon infirió correctamente sobre el estado ya estaba en `repOK()`, pero para utilizar estas inferencias se deben validar manualmente. Se reconocen aportes de Daikon en dos sentidos:
+
+- **Relaciones entre el estado antes y después de un método.** a diferencia de `repOK()`, Daikon infiere este tipo de propiedades. Por ejemplo, el puntaje nunca baja en un movimiento o el resultado de `mergeWith` vale el doble. Estas propiedades se pueden agregar como aserciones en los tests manuales.
+- **Muestra qué valores no estamos probando.** Cada invariante demasiado fuerte indica casos que ninguna ejecución alcanzó. por ejemplo, `WINNING_VALUE > this.score` muestra que ninguna ejecución llega a ganar. A partir de eso se pueden escribir tests nuevos con esos valores para mejorar la test suite.
+
+**Conclusión:** para *Reliable 2048* el mejor oráculo fue `repOK()` junto con las aserciones manuales, porque son los únicos que expresan la especificación en lugar del comportamiento observado. Rindieron más cuando los combinamos con generación automática de entradas (Randoop con `@CheckRep` y el fuzzer). Daikon queda como herramienta complementaria: sirve para descubrir propiedades candidatas que después validamos a mano, pero no reemplazó al oráculo escrito por el equipo.
