@@ -18,7 +18,7 @@
 
 ## a. Implemente una versión sencilla de la herramienta OASIs para refinamiento de oráculos utilizando LLMs.
 
-> [!NOTE] Nota
+> [!NOTE]
 > La idea es, dado un programa y una aserción, hacer consultas a un LLM para generar feedback que sirva al usuario para refinar la aserción.
 >
 > Para aserciones que son falsos positivos (demasiado fuertes), la herramienta debería generar tests para el programa que violen la aserción.
@@ -29,7 +29,7 @@
 
 ### a.1. Desarrolle al menos dos casos de estudio en los que aplicar la herramienta, y documente los resultados.
 
-> [!NOTE] Nota
+> [!NOTE]
 > Los casos de estudio pueden consistir, por ejemplo, en refinamientos de postcondiciones para métodos simples Java.
 >
 > Por ejemplo, podría utilizar contratos Daikon que haya descubierto que son muy débiles y aplicar la herramienta para refinarlos.
