@@ -13,7 +13,16 @@ public class MainCLI {
     private final Scanner scanner;
 
     public MainCLI() {
-        this.board = new Board();
+        this(new Board());
+    }
+
+    /**
+     * Creates a CLI that starts playing from the given board.
+     *
+     * @param board the initial board
+     */
+    public MainCLI(Board board) {
+        this.board = board;
         this.scanner = new Scanner(System.in);
     }
 
@@ -86,8 +95,29 @@ public class MainCLI {
         System.out.println(board);
     }
 
+    /**
+     * Usage:
+     *   java ar.edu.unrc.game2048.MainCLI
+     *   java ar.edu.unrc.game2048.MainCLI --board "[0,0,0,0,4,2,0,0,0,0,0,0,2,2,2,2]"
+     */
     public static void main(String[] args) {
-        MainCLI game = new MainCLI();
+        Board initial;
+        if (args.length == 0) {
+            initial = new Board();
+        } else if (args.length == 2 && args[0].equals("--board")) {
+            try {
+                initial = Board.fromString(args[1]);
+            } catch (IllegalArgumentException e) {
+                System.err.println("Invalid board: " + e.getMessage());
+                System.exit(1);
+                return;
+            }
+        } else {
+            System.err.println("Usage: MainCLI [--board \"[v1,v2,...,vN]\"]");
+            System.exit(2);
+            return;
+        }
+        MainCLI game = new MainCLI(initial);
         game.play();
     }
 }
