@@ -26,6 +26,8 @@ public final class Cell {
      */
     public static final Cell EMPTY = new Cell(0);
 
+    public static final int MAX_VALUE = 1 << 30;
+
     /**
      * Creates a new cell with the given value.
      *
@@ -63,7 +65,8 @@ public final class Cell {
 
     /**
      * Checks if this cell can merge with another cell.
-     * Two cells can merge if they are both non-empty and have the same value.
+     * Two cells can merge if they are both non-empty and have the same value,
+     * and that value is smaller than #MAX_VALUE
      *
      * @param other the other cell to check merge compatibility with
      * @return true if the cells can merge, false otherwise
@@ -73,6 +76,9 @@ public final class Cell {
             return false;
         }
         if (this.isEmpty() && other.isEmpty()) {
+            return false;
+        }
+        if (this.value == MAX_VALUE) {
             return false;
         }
         return this.value == other.value;

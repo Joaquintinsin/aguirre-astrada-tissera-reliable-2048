@@ -1,18 +1,22 @@
 package ar.edu.unrc.game2048.fuzzing;
 
 import ar.edu.unrc.game2048.Board;
+import ar.edu.unrc.game2048.Cell;
 
 /**
  * Independent, minimal re-implementation of the 2048 rules, used as a
  * differential-testing oracle by {@link FuzzHarness}.
  *
- * It uses {@code long} on purpose, so it never overflows: it computes the
- * mathematically correct result, and the harness compares Board against it.
+ * It uses {@code long} on purpose, so it never overflows by accident: the
+ * limits below are applied explicitly, and the harness compares Board against
+ * it.
  *
  * Rules (the same that Board documents):
  *  - no move is possible if the board contains WINNING_VALUE or is lost
  *  - a move slides tiles and merges each pair of equal adjacent tiles once
- *  - the score increases by the value of each merged tile
+ *  - a tile with value Cell.MAX_VALUE (2^30) never merges
+ *  - the score increases by the value of each merged tile, saturating at
+ *    Integer.MAX_VALUE
  *  - if the board changed, a 2 is placed in the first empty cell in
  *    row-major order (DeterministicPlacement)
  */
@@ -74,9 +78,9 @@ final class ReferenceModel {
             }
             if (pending == 0) {
                 pending = v;
-            } else if (pending == v) {
+            } else if (pending == v && canMerge(v)) {
                 out[w++] = 2 * v;
-                score += 2 * v;
+                score = Math.min(score + 2 * v, Integer.MAX_VALUE);
                 pending = 0;
             } else {
                 out[w++] = pending;
@@ -112,6 +116,10 @@ final class ReferenceModel {
         }
     }
 
+    private static boolean canMerge(long v) {
+        return v != 0 && v < Cell.MAX_VALUE;
+    }
+
     private void spawn() {
         for (int r = 0; r < n; r++) {
             for (int c = 0; c < n; c++) {
@@ -140,10 +148,10 @@ final class ReferenceModel {
                 if (g[r][c] == 0) {
                     return false;
                 }
-                if (c + 1 < n && g[r][c] == g[r][c + 1]) {
+                if (c + 1 < n && g[r][c] == g[r][c + 1] && canMerge(g[r][c])) {
                     return false;
                 }
-                if (r + 1 < n && g[r][c] == g[r + 1][c]) {
+                if (r + 1 < n && g[r][c] == g[r + 1][c] && canMerge(g[r][c])) {
                     return false;
                 }
             }

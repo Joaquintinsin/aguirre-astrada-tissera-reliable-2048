@@ -428,7 +428,7 @@ public class Board {
                     cellList.get(i).canMergeWith(cellList.get(i + 1))) {
                 Cell mergedCell = cellList.get(i).mergeWith(cellList.get(i + 1));
                 merged.add(mergedCell);
-                score += mergedCell.getValue();
+                score = (int) Math.min((long) score + mergedCell.getValue(), Integer.MAX_VALUE);
                 i += 2;
             } else {
                 merged.add(cellList.get(i));
