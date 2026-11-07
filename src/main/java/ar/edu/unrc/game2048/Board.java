@@ -119,6 +119,118 @@ public class Board {
     }
 
     /**
+     * Creates an all-empty board, WITHOUT the two initial random tiles.
+     * Used by fromString(String, PlacementStrategy), where the cells
+     * come from the input string.
+     */
+    private Board(PlacementStrategy strat, int size) {
+        this.size = size;
+        this.grid = new Cell[size][size];
+        this.score = 0;
+        this.strategy = (strat == null) ? new NonDeterministicPlacement() : strat;
+        initializeEmpty();
+    }
+
+    // ==================== BOARD FROM / TO STRING ====================
+
+    /**
+     * Maximum number of digits accepted for a single cell. The biggest power of
+     * two that fits in an int is 2^30 = 1073741824 (10 digits).
+     */
+    private static final int MAX_DIGITS = 10;
+
+    /**
+     * Grammar of a valid board string (only ASCII spaces are accepted as
+     * whitespace):
+     *
+     * <pre>
+     *   board  ::= ' '* '[' ' '* number (' '* ',' ' '* number)* ' '* ']' ' '*
+     *   number ::= '0' | [1-9][0-9]*
+     * </pre>
+     *
+     * Plus the semantic restrictions checked in fromString
+     * the amount of numbers is a perfect square n*n (n &gt;= 1), and every number
+     * is 0 or a power of two that fits in an int (&lt;= 2^30).
+     */
+    private static final java.util.regex.Pattern BOARD_PATTERN = java.util.regex.Pattern.compile(
+            " *\\[ *(0|[1-9][0-9]*)( *, *(0|[1-9][0-9]*))* *\\] *");
+
+    /**
+     * Builds a board from a string such as
+     * [0,0,0,0,4,2,0,0,0,0,0,0,2,2,2,2], using a non-deterministic
+     * placement strategy.
+     */
+    public static Board fromString(String s) {
+        return fromString(s, null);
+    }
+
+    /**
+     * Builds a board from a string with n*n comma-separated cell values, listed
+     * row by row. The resulting board has score 0 and no extra tiles added.
+     *
+     * @param s     the board string 
+     * @param strat the placement strategy (null means non-deterministic)
+     * @return a board whose cells are the given values
+     * @throws IllegalArgumentException if s is null or is not a valid
+     *                                  board string
+     */
+    public static Board fromString(String s, PlacementStrategy strat) {
+        if (s == null) {
+            throw new IllegalArgumentException("Board string cannot be null");
+        }
+        if (!BOARD_PATTERN.matcher(s).matches()) {
+            throw new IllegalArgumentException("Malformed board string: " + s);
+        }
+
+        // Syntax is OK: strip the brackets and split by commas
+        String body = s.trim();
+        body = body.substring(1, body.length() - 1);
+        String[] parts = body.split(",");
+
+        int n = parts.length;
+        int size = (int) Math.round(Math.sqrt(n));
+        if (size * size != n) {
+            throw new IllegalArgumentException(
+                    "The number of cells (" + n + ") is not a perfect square");
+        }
+
+        Board board = new Board(strat, size);
+        for (int i = 0; i < n; i++) {
+            String token = parts[i].trim();
+            if (token.length() > MAX_DIGITS) {
+                throw new IllegalArgumentException("Cell value too big: " + token);
+            }
+            long value = Long.parseLong(token);
+            if (value > Integer.MAX_VALUE) {
+                throw new IllegalArgumentException("Cell value too big: " + token);
+            }
+            // Cell's constructor rejects values that are not 0 or a power of two
+            board.grid[i / size][i % size] = new Cell((int) value);
+        }
+        return board;
+    }
+
+    /**
+     * Serializes the cells of this board in the format accepted by
+     * fromString(String) = [0,2,0,4]. The score is not
+     * included.
+     *
+     * @return the board as a string
+     */
+    public String toArrayString() {
+        StringBuilder sb = new StringBuilder("[");
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                if (r > 0 || c > 0) {
+                    sb.append(',');
+                }
+                sb.append(grid[r][c].getValue());
+            }
+        }
+        return sb.append(']').toString();
+    }
+
+    /**
      * Initializes the board with all EMPTY cells.
      */
     private void initializeEmpty() {
@@ -316,7 +428,7 @@ public class Board {
                     cellList.get(i).canMergeWith(cellList.get(i + 1))) {
                 Cell mergedCell = cellList.get(i).mergeWith(cellList.get(i + 1));
                 merged.add(mergedCell);
-                score += mergedCell.getValue();
+                score = (int) Math.min((long) score + mergedCell.getValue(), Integer.MAX_VALUE);
                 i += 2;
             } else {
                 merged.add(cellList.get(i));

@@ -25,3 +25,7 @@ replay_pid*
 
 .vscode/
 target/
+
+# Assignment 5 fuzzing outputs
+fuzzing-out/
+__pycache__/
