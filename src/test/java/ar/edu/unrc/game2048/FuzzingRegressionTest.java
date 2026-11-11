@@ -58,4 +58,32 @@ public class FuzzingRegressionTest {
         assertEquals(Integer.MAX_VALUE, b.getScore());
         assertTrue(b.repOk());
     }
+
+
+    @Test
+    public void hugeBoardStringIsRejectedWithoutStackOverflow() {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < 300 * 300; i++) {
+            if (i > 0) sb.append(',');
+            sb.append('0');
+        }
+        sb.append(']');
+        assertThrows(IllegalArgumentException.class, () -> Board.fromString(sb.toString()));
+    }
+
+    @Test
+    public void tabsAreRejected() {
+        assertThrows(IllegalArgumentException.class, () -> Board.fromString("\t[0]\t"));
+        assertThrows(IllegalArgumentException.class, () -> Board.fromString("[0,0,0,\t0]"));
+    }
+
+    @Test
+    public void malformedStringsAreRejectedCleanly() {
+        String[] bad = { "", "[]", "[,]", "[0,0,0,0,]", "[0,,0,0]", "[[0]]", "[02]", "[+2]",
+                "[-2]", "[3]", "[2147483648]", "[\u0662]", "[0]\n", "[0,0,0]" };
+        for (String s : bad) {
+            assertThrows(IllegalArgumentException.class, () -> Board.fromString(s), s);
+        }
+        assertThrows(IllegalArgumentException.class, () -> Board.fromString(null));
+    }
 }

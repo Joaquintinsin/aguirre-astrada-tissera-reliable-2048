@@ -178,7 +178,14 @@ public class Board {
         if (s == null) {
             throw new IllegalArgumentException("Board string cannot be null");
         }
-        if (!BOARD_PATTERN.matcher(s).matches()) {
+        boolean matches;
+        try {
+            matches = BOARD_PATTERN.matcher(s).matches();
+        } catch (StackOverflowError e) {
+            throw new IllegalArgumentException(
+                    "Board string too long to parse: " + s.length() + " chars");
+        }
+        if (!matches) {
             throw new IllegalArgumentException("Malformed board string: " + s);
         }
 

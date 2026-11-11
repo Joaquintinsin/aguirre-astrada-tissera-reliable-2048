@@ -51,3 +51,36 @@ Resultado sobre 10.000 tableros: **PASS 9926, FAIL 3, CRASH 71**.
 | `movingTwoMaxValueTilesDoesNotCrash` | 1 | ✘ `IllegalArgumentException: Cell value cannot be negative: -2147483648` | ✔ |
 | `fullBoardWithOnlyMaxValuePairsIsLosing` | 1 | ✘ `isLosingBoard()` devolvía `false` | ✔ |
 | `scoreSaturatesInsteadOfOverflowing` | 2 | ✘ score = `-2147483648` | ✔ |
+
+
+
+## Ejercicio 1.b: Fuzzing con mutaciones
+
+### Cómo correr
+
+    source ./settear-java-21.sh
+    ./12-fuzz-mutated-boards.sh 10000 20 0
+
+### Archivos
+- `fuzzing/mutator.py`: mutador básico. Toma tableros válidos (los del fuzzer de gramática) y aplica entre 1 y 5 mutaciones: borrar, insertar o reemplazar un carácter. Los caracteres insertados incluyen símbolos de la sintaxis, dígitos unicode y blancos.
+- `MutationHarness.java`: arnés. Un validador independiente decide si cada string debería aceptarse y se compara contra `Board.fromString`. Además de las mutaciones, corre 57 casos escritos a mano (vacío, `null`, corchetes de menos o de más, comas dobles o finales, ceros a la izquierda, signos, valores fuera de rango, dígitos unicode, saltos de línea, tableros enormes).
+- `12-fuzz-mutated-boards.sh`: compila, genera, muta y ejecuta el arnés.
+
+### Resultados posibles
+REJECTED y ACCEPTED son correctos. Son errores: WRONGLY_ACCEPTED (se aceptó un string inválido), WRONGLY_REJECTED (se rechazó uno válido), FAIL (falló un oráculo) y CRASH (escapó una excepción o error distinto de `IllegalArgumentException`).
+
+### Errores encontrados
+Primera corrida sobre 10.057 entradas: REJECTED 9968, ACCEPTED 71, WRONGLY_REJECTED 16, CRASH 2.
+
+**Bug 1: `StackOverflowError` con tableros muy grandes (2 CRASH).**
+`fromString` valida la sintaxis con una expresión regular; en tableros de 300×300 y 1000×1000 el regex desborda la pila y el error escapa en lugar de rechazarse.
+
+**WRONGLY_REJECTED (16): no es un bug de `Board`.** Eran strings con tabs alrededor de los valores. `Board` rechaza los tabs, mientras que el validador del arnés los trataba como espacios permitidos. Se corrigió el validador. Decisión de especificación: `fromString` tolera espacios ASCII y rechaza tabs y cualquier otro blanco.
+
+### Corrección
+`fromString` captura el `StackOverflowError` del regex y lanza `IllegalArgumentException("Board string too long to parse")`.
+Limitación conocida: un tablero válido pero demasiado grande para el regex se rechaza. Una alternativa futura es reemplazar el regex por un recorrido manual.
+
+### Después de corregir
+Corrida limpia con la misma semilla: REJECTED 9986, ACCEPTED 71, WRONGLY_ACCEPTED 0, WRONGLY_REJECTED 0, FAIL 0, CRASH 0.
+
