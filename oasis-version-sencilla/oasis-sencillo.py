@@ -24,9 +24,10 @@ Distinguí estos casos:
   resultado del mutante difiera del esperado.
 
 Respondé en español con estas secciones: clasificación, análisis, ejemplo
-concreto y posible refinamiento. Si falta información, decilo. No cambies el
-código ni la aserción. La sugerencia es feedback para revisión humana, no una
-decisión automática. Tené en cuenta el comportamiento real de Java, incluido
+concreto y posible refinamiento. Tratá de resumir todo lo más posible, no agregues
+información extra y sé lo más consiso posible. Si falta información, decilo.
+No cambies el código ni la aserción. La sugerencia es feedback para revisión humana,
+no una decisión automática. Tené en cuenta el comportamiento real de Java, incluido
 el overflow de int cuando corresponda."""
 
 
@@ -37,8 +38,8 @@ def parse_args():
     parser.add_argument(
         "--input",
         type=Path,
-        default=SCRIPT_DIR / "input.json",
-        help="JSON con las rutas 'programa' y 'asercion' (por defecto: input.json).",
+        default=SCRIPT_DIR / "input-abs.json",
+        help="JSON con las rutas 'programa' y 'asercion' (por defecto: input-abs.json).",
     )
     parser.add_argument(
         "--model",
